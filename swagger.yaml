@@ -1,0 +1,2536 @@
+swagger: '2.0'
+info:
+  title: Forge Schema API
+  description: |
+  
+    [@overview]: <> (title)
+    
+    In Autodesk, there are multiple product suites that focuses on various industry domains. Each of these suites use their own ways to represent project structures, metadata, and store and access the data. This is making difficult for Autodesk products to collaborate with other products and restricts them on universal data consumption.
+    
+    The Forge Schema API provides a way to define a template or set of rules for defining the project structure, metadata, and also store the data from various Autodesk applications in a particular structure or a format.
+    
+    The Forge Schema API also allows the internal products and external consumers to extend the existing entities and relationships, and publish these extensions consistently.
+    
+    Schema provides a versioning capability. With versioning, different versions of a schema can be published. These versions are completely non-editable. So, any product can use a particular version of a schema without getting affected by changes in the schema.
+    
+    The Forge Schema API follows the JSON API specification 4.0. For more information, see JSON API specification.
+    
+    For all Forge Schema API requests, you must set the following headers:
+    
+    |Header             | Value
+    | ------            | -----------------------------------------------------------------------------------
+    | **Content-Type**  |  application/vnd.api+json
+    | **Accept**        |  application/vnd.api+json
+    | **Authorization** |  Bearer <3-leggedToken>
+    
+    [@overview/basics]: <>
+    #API Basics
+    
+    Forge Schema provides a set of APIs that allows to create a template for defining the project structure, metadata, and define how to store the data from various Autodesk applications in a particular format. 
+
+    For additional information about schema entities, see the `Schema Structure </en/docs/schema/v1/overview/schema-structure>`_.
+    
+    ## Standards
+    
+    1. This API follows the ``JSON API`` specs 1.0 documented at `JSON API Spec <http://jsonapi.org/format/>`_
+    2. Entity names are always plural e.g. ``Namespaces``, ``Entities``, ``Extensions``
+    3. Entities are organised in the following hierarchy: 
+    
+        - ``Namespaces`` -> ``Entities``... -> ``Entensions``
+    
+    4. Element names are camelCase e.g. ``rootFolder``
+    5. Most operations work with both 2 and 3 legged oauth keys. In case a 2 legged oauth key is used - some fields like userId may be empty (or use application name)
+    6. You need to specify the Schema inside the "data":"attributes":"schema" attribute of the POST request body. For more information, see JSON schema examples for extension types [here](en/docs/schema/examples).
+
+    ## HTTP Verbs
+    
+     Forge Schema API provides the following methods to add, edit, or retrieve the entities.
+    
+      | Verb        | Description
+      | ------      | -------------------------------------------------------------------------------------------------------
+      | `GET`       |  Used to select one or more items. Success returns `200` status code with json result item(s) in body.
+      | `POST`      |  Used to create a new item. Success returns `201` status code with newly created json item in body.
+      | `PATCH`     |  Used to update an item. Success returns `201` status code.
+
+    ## Status Codes
+    
+      Forge Schema API endpoints responds with any one of the following status codes.
+      
+      |Code         | Description
+      | ------      |---------
+      |`200`        | Success
+      |`201`        | Success - New resource created.
+      |`204`        | Success - No content to return.
+      |`302`        | Redirect  to another resource
+      |`400`        | Bad Request - Your request could not be parsed.
+      |`401`        | Unauthorized - User is not logged in, cannot access resource.
+      |`404`        | Not Found - Resource does not exist.
+      |`500`        | Server error. There is nothing the app or user can do to recover from this. Correct response is to contact Forge Schema support team for 500 errors.
+
+    ## Error Objects
+    
+    Error objects provide additional information about problems encountered while performing an operation. Error objects MUST be returned as an array keyed by errors
+    in the top level of a `JSON API` document.
+    
+    ```JSON
+    {
+      errors: [
+        {
+          "status": "400 Bad Method",
+          "id": "a unique identifier for this particular occurrence of the problem",
+          "code": "10234",
+          "title": "Wrong Material ID",
+          "detail": "Material ID 15234523 does not exist in the database",
+          "link":
+          {
+            "about":"http://api.forge.autodesk.com/errors/code/"
+          }
+        }
+      ]
+    }
+    ```
+    
+    * Production URL: (https://developer.api.autodesk.com)
+    * Beta URL: (https://developer-stg.api.autodesk.com)
+    
+    [@overview/schema-structure]: <> 
+    # Schema structure
+      
+    The Forge Schema API provides a pre-defined but flexible structure that you need to follow when creating the schemas.
+      
+    This structure consists of the following components:
+      
+      * [Namespace](#Namespace)
+      * [Entity](#Entity)
+      * [Extension](#Extension)
+      
+      ![Forge Schema Structure](https://git.autodesk.com/ACG-Cloud-Services/dmg-documentation/blob/master/schema_structure.png?raw=true "Schema Structure")
+      
+      The components of the schema are arranged in a specific hierarchy as shown below:
+      
+    ##<a name="namespace"></a>Namespace
+      
+      A namespace is a logical grouping of policies and resources within your domain. The namespace also resembles to an account with your domain.
+      
+      All entities, extensions, and schemas are contained within the namespace. This allows clear separation and ownership of domains. For example, BIM360, and A360.
+      
+      Once you create a namespace, the new namespace is assigned to the creator as the owner. Only the owner of the namespace can edit their namespaces. Owner can transfer the ownership of the namespace to different owner.
+      
+      >**Note**: Only a super user or FSS team can create a Namespace. Also, the namespace is created on per tenant basis and you must create all required schemas inside the designated namespace.
+    
+    ##<a name="entity"></a>Entity
+      
+      Entities are the types that store the resources for various Autodesk products. For example, Hubs, Projects, Folders, and Items.
+      
+      When you create a namespace, the predefined entities are automatically created in the namespace. You can create your schemas inside the entity.
+    
+    ### Entity ID syntax
+    
+      `{Entity Name}:{Namespace Name}`
+      
+      For example, **contents:test.sandbox**
+    
+    ##<a name="extension"></a>Extension
+    
+    The extension is nothing but the name and type of the schema that you want to create. For each entity in a namespace you can create different extensions of different types.
+    
+    ### Extension ID syntax
+    
+      `{Entity Name}:{Namespace Name}:{Extension Name}`
+      
+      For example, **contents:test.sandbox:Material**
+      
+    [@overview/schema-types]: <> 
+    # Schema Types
+    
+    Autodesk Forge Schema API provides the following types of schemas:
+
+      * [Resource Schemas](#resourceschemas)
+      * [Reference Schemas](#referenceschemas)
+      * [Links Schemas](#linksschemas)
+      * [Contents Schemas](#contentsschemas)
+      * [Custom Types schemas](#customtypesschemas)
+      
+    ##<a name="resourceschemas"></a>Resource Schemas
+      
+      The schemas that define an extension of a base resource type.
+      
+      Following are the base resource types for the resource schemas and supports a common set of attributes:
+      
+      * Hubs
+      * Projects
+      * Folders
+      * Items
+      * Versions
+      
+      You can extend the resources using the following:
+      
+      * **Attributes**
+        
+        * **Schema attributes**: Defined only in the schema, which describe the semantics of all instances of a schema type.
+        * **Core attributes**: Specified for all instances of a base resource type, which can be validated by rules in the schema.
+        * **Custom attributes**: Additional attributes that the Schema author declares in the schema for instances of the extension type.
+      
+      * **Relationships**
+
+        The pre-defined relationships that you can specify for all instances of a base resource type. You can further validate these relationships by the rules in schema.
+    
+    ##<a name="resourceschemas"></a>Reference Schemas
+      
+      In the **refs** entity, you can create Reference type schemas, which defines the custom relationship between the resources.
+    
+    ##<a name="linksschemas"></a>Links Schemas
+      
+      In the **links** entity, you can create Links type schemas for the links, which represents an external link to the resources through URL.
+      
+    ##<a name="contentsschemas"></a>Contents Schemas
+      
+      In the **contents** entity, you can create content type schema, which defines the content for the resources. The content is used by Forge Content application.
+
+    ##<a name="customtypesschemas"></a>Custom Types Schemas
+    
+    A Custom types entity schema is a standalone schema. The following are the features of Custom Type schema:
+    
+    * Custom Type schema are standalone schemas within a namespace which are independent.
+     
+    * A content CANNOT be created based on the customType schema.
+    
+    * They are like global objects within a namespace that can be referred by multiple schema extensions and extend them in a particular schema if there is any customization.
+    
+    * Custom Type schema can be of 2 types – object & array having a set of properties defined inside the object/array.
+    
+    * These schemas can be referenced by the data property of entity schemas. Currently, we allow referencing from Contents schema only.
+    
+    * A Custom Type schema can be referenced by a property using `customTypeId` param within the property.
+    
+    * The property which is referencing the custom type schema should have the same type i.e. object, array as defined in the custom type schema.
+    
+    * The property referencing the custom type schema can be extended by adding more properties within the object or array.
+    
+    * The properties inside the Custom type schemas will be merged inside the property in the schema referencing it.
+    
+    [@overview/schema-versioning]: <> 
+    # Schema Versioning
+    
+    Forge Schema API provides a mechanism for versioning schemas. Using this mechanism, you can create and maintain different versions of your schemas.
+    
+    When you first create a schema, Forge Schema API creates a draft version of that schema. You can publish this draft version multiple times and create different versions each with different attributes and properties. 
+    
+    The published versions can be major versions or minor versions, which depends on the backward compatibility that Forge determines.
+    
+    **Note**: For each schema only one draft version is allowed. This draft version remains editable for the owner of the schema, whereas all the published versions always remain non-editable and non-removable for any user.
+    
+    Forge Schema APIs also allows you to directly publish your schemas. However, it is recommended that you update the draft version first, validate it, and then publish the draft version. In this way, the draft version always contains the updates made in the last published version.
+    
+    **Note**: While publishing the schema, if Forge Schema API does not find any changes from the previous version, it displays an error message.
+    
+    Whenever you want to use a schema for an Autodesk product, you can associate a specific published version of the schema. This ensures that if the owner changes the schema, the schema version associated with the product is unaffected for those changes.
+
+    [@overview/schema-validation]: <>
+    # Schema Validation
+      
+      When you create a schema, you must ensure that the schema is a valid schema. The valid schema consists of a valid syntax, structure, reference types, description, and data.
+      
+      You must check the following points to ensure that the schema is valid:
+      * **Structure**: All basic attributes exist and comply with regular expression rules as specified in the schema document.
+      * **Description**: Each element defined in specification has a description field.
+      * **Referenced Types**: Any referenced types actually exist. If reference includes a version number, that version actually exist.
+      * **Schema implementation**: The schema implements a valid base type with a valid version.
+      * **Object data**: If the extension.data field is of type "object", a valid JSON schema is provided to validate this object.
+
+    [@overview/schema-syntax]: <>
+    # Schema Syntax
+    
+    You can create a schema using a combination of base type, namespace, and extension type: 
+    
+    ```
+    {basetype}:namespace:{extensiontype}
+    ```
+    
+    For example, **items:BIM360:File**
+    
+    A specific version of a schema is identified as follows:
+    
+    ```
+    {basetype}:namespace:{extensiontype}-{version}
+    ```
+    
+    For example, **items:BIM360:File-1.0.0**
+    
+    [@overview/sections-in-schema]: <>
+    # Sections in a Schema
+    
+    Each schema that you create contains the reference to the actual JSON schema version and the description of the schema. 
+    
+    In addition to this metadata, the schema can contain the following sections:
+
+    ## Common Properties section 
+    
+      This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
+    
+      ```JSON
+      {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
+        "type": "object",
+        "required": [
+          "type",
+          "attributes"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "contents"
+            ],
+            "description": "SCHEMA-ONLY Base entity type extended by this type. Can be contents"
+          },
+          "attributes": {
+            "type": "object",
+            "required": [
+              "extension"
+            ],
+            "properties": {
+              "extension": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "data"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "contents:autodesk.content.test:toolsChildContent"
+                    ],
+                    "description": "Extension for toolsChildContent"
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "draft"
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "enum": [
+                      "autodesk.content.test"
+                    ],
+                    "description": "Namespace to which this extensionType belongs"
+                    ...
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ```
+    ## Extension Data section
+      
+      This section contains the actual extended properties that you want to use to store your data. For each property, you can define the name, type, description, and the required status.
+    
+    ```JSON
+    "data": {
+        "type": "object",
+        "description": "custom properties for this type",
+        "required": [
+          "CenterCuttingCapability",
+          "Status",
+          "toolEngine"
+        ],
+        "properties": {
+          "Comment": {
+            "override": true,
+            "title": "Comment",
+            "description": "Comment",
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 500
+          },
+          "CenterCuttingCapability": {
+            "override": true,
+            "title": "CenterCuttingCapability",
+            "description": "Center Cutting Capability",
+            "default": "true",
+            "type": "boolean"
+          },
+          "buildType": {
+            "override": true,
+            "type": "object",
+            "description": "build Type",
+            "required": [
+              "diameter",
+              "width"
+            ],
+            "properties": {
+              "diameter": {
+                "title": "diameter",
+                "description": "diameter",
+                "default": "5",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10,
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false
+              },
+              "length": {
+                "title": "length",
+                "description": "length",
+                "default": "10",
+                "type": "number"
+              },
+              "width": {
+                "title": "width",
+                "description": "width",
+                "default": "15",
+                "type": "number"
+              }
+            }
+          },
+          "assembly": {
+            "type": "array",
+            "description": "assembly items",
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "description": "assembly item",
+              "properties": {
+                "productionCount": {
+                  "title": "productionCount",
+                  "description": "production Count",
+                  "default": "1",
+                  "type": "number",
+                  "minimum": 1,
+                  "exclusiveMinimum": false
+                }                     
+              }
+            }
+          },
+          "toolsFiles": {
+            "type": "array",
+            "customTypeId": "customTypes:autodesk.core:file-1.0.0",
+            "description": "custom tools file data",
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "required": [
+                "toolsFileId"
+              ],
+              "description": "tools file extension data",
+              "properties": {
+                "toolsFileId": {
+                  "title": "Tools File Id",
+                  "description": "Tools File Id",
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    ```
+    
+    ## Relationships section
+    
+    In this section, you define the relationship of your schema with entities. You can also link your schema to any other entity.
+    
+    ```JSON
+    "relationships": {
+     "extensions": {
+        "links": {
+         "self": "http://alpha.dmg.autodesk.com:10001/entities/fusion360:folders/relationships/extensions",
+          "related": "http://alpha.dmg.autodesk.com:10001/entities/fusion360:folders/extensions"
+         }
+        }
+      },
+      “links": {
+         "self": "http://alpha.dmg.autodesk.com:10001/entities/fusion360:folders"
+      }
+    
+    ```
+    
+    ## Restricted section
+      
+      This section contains the properties with read and write restrictions for whitelisted consumer keys.
+      
+      If any consumer key has write permissions, that consumer can also read any key with read permission in the restricted section.
+          
+    ```JSON
+    "restricted": {
+      "type": "object",
+      "description": "SCHEMA-ONLY list of properties with read or write access limited to whitelisted consumer keys",
+      "properties": {
+        "read": {
+          "type": "object",
+          "properties": {
+            "restrictedProperties": {
+              "type": "array",
+              "description": "fully qualified path to the property. Do not allow restriction on basic properties e.g version, namespace, implements etc.",
+              "items":[
+                  {
+                    "type":"string",
+                    "enum":["extension.data.customProperty2"]
+                  },
+                  {
+                    "type":"string",
+                    "enum":["storage"]
+                  }
+                ]
+               
+              }
+          }
+        },
+         "write": {
+          "type": "object",
+          "properties": {
+            "restrictedProperties": {
+              "type": "array",
+              "description": "fully qualified path to the property. Do not allow restriction on basic properties e.g version, namespace, implements etc.",
+              "items":[
+   
+                  {
+                    "type":"string",
+                    "enum":["storage"]
+                  }
+                ]
+               
+              }
+          }
+        }    
+      }
+    }
+    ```
+    
+    [@overview/advantages-of-schema]: <>
+    # Advantages of Schema
+      
+      1. Creates a standard structure for base entities, like Projects, Folders, Files, and Relationships
+      
+      2. Different versions can be published that products can use without affecting with any changes in the actual schema.
+    
+    [@overview/field-guide]: <>
+    # Field Guide
+      
+      In Forge Schema API, there are following primary components for creating extension types and schemas.
+    
+    ## Namespace
+      
+      A namespace provides a common representation of Autodesk products, like BIM 360, A360. It contains the following attributes:
+    
+    | Attributes         | Description
+    | ------      | -----------------------------------------------------------------------------------
+    | **name**       |  The name of the namespace.
+    | **lastModifiedTime** |  The date and time when the namespace is modified last time.
+    | **createTime**     |  The date and time when the namespace is created.
+    
+    ### Relationship
+    
+    | Name        | Type | Description
+    | ------      | -----| ----------------------------------------------------------------------------
+    | **entity**  | 1-to-many | Entities contained within the namespace.
+    | **link**    | 1-to-many | Namespace linked to the Autodesk product.
+    
+    ### Example Object
+    
+    ```JSON
+    data:
+      type: namespaces
+      id: autodesk.rendering
+      attributes:
+        lastModifiedTime: '2017-02-07T05:48:17Z'
+        createTime: '2016-12-16T02:07:52Z'
+        name: autodesk.rendering
+        count:
+          entities: 11
+      relationships:
+        entities:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/namespaces/autodesk.rendering/relationships/entities'
+            related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/namespaces/autodesk.rendering/entities'
+      links:
+        self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/namespaces/autodesk.rendering'
+    included: []
+    meta: {}
+    
+    ```
+    
+    ## Entity
+    
+      An entity provides a common representation for different folders for Autodesk products, like BIM 360, A360. It contains the following attributes:
+    
+    | Attributes         | Description
+    | ------      | -----------------------------------------------------------------------------------
+    | **name**       |  The name of the entity.
+    | **lastModifiedTime** |  The date and time when the entity is modified last time.
+    | **createTime**     |  The date and time when the entity is created.
+    
+    ### Relationship
+    
+    | Name        | Type | Description
+    | ------      | -----| ----------------------------------------------------------------------------
+    | **entity**  | 1-to-many | Extensions contained within the entity.
+    | **link**    | 1-to-many | Entities linked to the Autodesk product.
+    
+    ### Example Object
+    
+    ```JSON
+    data:
+      type: entities
+      id: 'commands:autodesk.rendering'
+      attributes:
+        lastModifiedTime: '2017-02-07T05:48:17Z'
+        createTime: '2017-02-07T05:48:17Z'
+        name: commands
+      relationships:
+        extensions:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:autodesk.rendering/relationships/extensions'
+            related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:autodesk.rendering/extensions'
+      links:
+        self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:autodesk.rendering'
+    included: []
+    
+    ```
+    
+    ## Extension
+      
+    Extension represents the type of extension data that you want to store for your Autodesk application. You can create different extensions for each entity.
+    
+    | Attributes         | Description
+    | ------      | -----------------------------------------------------------------------------------
+    | **name**       |  The name of the extension.
+    | **lastModifiedTime** |  The date and time when the extension is modified last time.
+    | **createTime**     |  The date and time when the extension is created.
+    
+    ### Relationship
+    
+    | Name        | Type | Description
+    | ------      | -----| ----------------------------------------------------------------------------
+    | **versions**  | many-to-1 | Different versions created from the draft version.
+    | **link**    | many-to-1 | Different versions of the extensions linked to an entity.
+    
+    ### Example Object
+    
+    ```JSON
+    data:
+      - type: extensions
+        id: 'contents:autodesk.content.test:toolsGrandParentContent'
+        attributes:
+          lastModifiedTime: '2016-12-08T13:41:31Z'
+          createTime: '2016-12-08T00:01:54Z'
+          latestVersion: 1.0.0
+          name: toolsGrandParentContent
+          count:
+            versions: 1
+        relationships:
+          draft:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/relationships/draft'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/draft'
+            data: null
+          tip:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/relationships/tip'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/tip'
+            data: null
+          versions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/relationships/versions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent/versions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:autodesk.content.test:toolsGrandParentContent'
+    included: []
+    meta:
+      paginationInfo:
+        totalResults: 10
+        pageNumber: 1
+        totalPages: 1
+        pageSize: 20
+    links:
+      prev: ''
+      next: ''
+      first: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:autodesk.content.test/extensions?page[number]=1&page[size]=20'
+      last: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:autodesk.content.test/extensions?page[number]=1&page[size]=20'
+    ```
+    [@overview/tutorials]: <>
+    # Step-by-Step Tutorials
+      
+      The Forge Schema API service provides a set of APIs for developers to access and manage the schema for your resources. 
+      
+      In this section, we provide some step-by-step tutorials demonstrating how the Forge Schema API works:
+    
+    ## Create a New Namespace
+    
+      This tutorial explains how to create a namespace for your Autodesk product.
+    
+    ## View Entities
+    
+      This tutorial explains how to view the entities in the namespace. When you create a namespace, the predefined entities are automatically created in the namespace.
+    
+    ## Create an Extension Type
+    
+      This tutorial explains how to create an extension type in a required entity. To create a schema, you need to create an extension type where you can create your schema and store different versions of the schemas.
+    
+    ## Create a New Schema for an Extension Type
+      
+      This tutorial explains how to create a new schema for your extension type.
+    
+    ## Save and Publish a Schema
+    
+      This tutorial explains how to publish your schema. You need to publish your schema so that the Autodesk applications can use the schema.
+    
+    ## View Schema Versions
+    
+      This tutorial explains how you can view different versions and different types of versions of your schema. The version types can be draft versions and published versions.
+    
+    ## Search a Schema
+      
+      This tutorial explains how you can search a schema. The API request provides different filter conditions that you can use to quickly search the required schema.
+    
+    ## Implement or Inherit a Schema
+      
+      This tutorial explains how you can implement a schema into another schema and create a parent-child relationship between schemas.
+    
+    [@tutorials/before-you-begin]: <>
+    # Before you begin
+      
+      Before you start creating and managing your schemas, ensure that you have [registered an app](https://developer.autodesk.com/en/docs/oauth/v2/tutorials/create-app) and successfully [acquired an OAuth token](https://developer.autodesk.com/en/docs/oauth/v2/tutorials).
+      
+      See the Authentication and Scopes section in the [API Basics](https://developer.autodesk.com/en/docs/data/v2/overview/basics) for the appropriate token based on the data you are accessing.
+      
+      In general, access to BIM 360 Team, BIM 360 Docs, Fusion Team, and A360 Personal data requires the use of a [3-legged OAuth2 token](https://developer.autodesk.com/en/docs/oauth/v2/tutorials/get-3-legged-token).
+      
+      HTTP `GET` requests to the Forge Schema services require the `data:read` scope.
+      
+      HTTP `POST` requests to the Forge Schema require the `data:create` scope, but can also be called with the `data:write` scope.
+    
+    [@tutorials/create-new-namespace]: <>
+    # Create a New Namespace
+      
+      This topic explains how to create a namespace for your application where you can create your extensions and schemas. For more information about namespace, see Namespace.
+      
+      The Namespace API exposes a `POST namespaces` endpoint that allows you to create new namespace for your application.
+      
+      When you create a namespace, all pre-defined entities are automatically added in that namespace.
+    
+    ## Example
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+        "type": "namespaces",
+        "attributes": {
+          "name": "Namespace Name"
+        }
+      }
+    }’ "https://developer.api.autodesk.com/content/v1/namespaces"
+    ```
+    
+    The resource provides the following response:
+    
+    ```JSON
+    data:
+      type: namespaces
+      id: A360
+      attributes:
+        lastModifiedTime: '2016-05-24T19:10:24Z'
+        createTime: '2016-05-24T19:10:24Z'
+        name: A360
+      relationships:
+        entities:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities'
+            related: 'https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities'
+      links:
+        self: 'https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360'
+    included: []
+    ```
+    
+    [@tutorials/view-entities]: <>
+    ## View Entities
+    
+    This topic explains how to view the entities in a particular namespace. In entities, you can create different types of extensions and schemas for your application. For more information about entities, see Entity.
+    
+    The Entity Types API exposes a `GET entities` endpoint that allows you to retrieve all entities from a namespace.
+    
+    Each entity corresponds to a specific type of extension and schema. So, you can create different type of extension and the schema. You can retrieve the entities to know which type of extension and schema you want to create and accordingly specify the entity when creating the extension type and schema.
+    
+    ## Example
+
+    ```SHELL
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d "https://developer.api.autodesk.com/schema/v1/namespaces/namespace/entities"
+    ```
+    
+    The resource provides the following response:
+    
+    ```JSON
+    data:
+      - type: entities
+        id: 'commands:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: commands
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/commands:test.formbuilder'
+      - type: entities
+        id: 'contents:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T09:38:43Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: contents
+          count:
+            extensions: 1
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:test.formbuilder'
+      - type: entities
+        id: 'customTypes:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: customTypes
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/customTypes:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/customTypes:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/customTypes:test.formbuilder'
+      - type: entities
+        id: 'folders:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: folders
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/folders:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/folders:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/folders:test.formbuilder'
+      - type: entities
+        id: 'hubs:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: hubs
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/hubs:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/hubs:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/hubs:test.formbuilder'
+      - type: entities
+        id: 'items:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: items
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/items:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/items:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/items:test.formbuilder'
+      - type: entities
+        id: 'links:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: links
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/links:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/links:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/links:test.formbuilder'
+      - type: entities
+        id: 'projects:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: projects
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/projects:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/projects:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/projects:test.formbuilder'
+      - type: entities
+        id: 'ps:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: ps
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/ps:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/ps:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/ps:test.formbuilder'
+      - type: entities
+        id: 'refs:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: refs
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/refs:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/refs:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/refs:test.formbuilder'
+      - type: entities
+        id: 'versions:test.formbuilder'
+        attributes:
+          lastModifiedTime: '2017-07-12T06:30:25Z'
+          createTime: '2017-07-12T06:30:25Z'
+          name: versions
+        relationships:
+          extensions:
+            links:
+              self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/versions:test.formbuilder/relationships/extensions'
+              related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/versions:test.formbuilder/extensions'
+        links:
+          self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/versions:test.formbuilder'
+    included: []
+    ```
+    
+    [@tutorials/create-extension-type]: <>
+    ## Create an Extension Type
+    
+    This topic explains how to create a new extension type in a specific entity. You create an extension type first and then attach a required schema to that extension type.
+    
+    The Extension Type API exposes a POST extensions endpoint that allows you to create new extension type in a required entity.
+    
+    In the POST request, you need to specify the ID of the entity where you want to create an extensio.
+    
+    ## Example
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+        "type": "extensions",
+        "attributes": {
+          "name": "Extension Name",
+          "entityId": "Entity ID"
+        }
+      }
+    }’ https://developer-stg.api.autodesk.com/schema/v1/entities/{entityId}/extensions
+    ```
+    
+    The resource provides the following response:
+    
+    ```JSON
+    data:
+      type: extensions
+      id: 'contents:test.sandbox:3DPrinting'
+      attributes:
+        lastModifiedTime: '2017-07-13T06:52:32Z'
+        createTime: '2017-07-13T06:52:32Z'
+        name: 3DPrinting
+      relationships:
+        versions:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/relationships/versions'
+            related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/versions'
+        draft:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/relationships/draft'
+            related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/draft'
+          data: null
+        tip:
+          links:
+            self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/relationships/tip'
+            related: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting/tip'
+          data: null
+      links:
+        self: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/extensions/contents:test.sandbox:3DPrinting'
+    included: []
+    ```
+    [@tutorials/create-new-schema-for-extension-type]: <>
+    # Create a New Schema for an Extension Type
+    
+    This topic explains how to create new schema for an extension type. Schema provides a set of rules for the resources to store and retrieve the data in Autodesk Forge.
+    
+    The Extension Type Schema exposes a `POST versions` endpoint that allows you to create new version of the schema for your extension. In the POST request, you need to specify the ID of an extension type where you want to create a new schema.
+    
+    The status of the new schema will be draft. After you complete creating the schema, you can publish that schema and change the status to published.
+    
+    **Note**: You must write your schema in a JSON format and write it in the schema data attribute.
+    
+    ## Example
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+        "type": "versions",
+        "attributes": {
+          "extensionId": "Extension ID",
+          "extensionStatus": "Extension Status (draft, published)",
+          "schema": {
+            "NOTE": "The actual schema. For more information, see the Forge Schema section."
+          }
+        }
+      }
+    }’ https://developer-stg.api.autodesk.com/schema/v1/extensions/{extensionTypeId}/versions
+    ```
+    
+    Forge Schema API validates the schema and if it is correct, the resource provides a successful response.
+    
+    [@tutorials/save-and-publish-schema]: <>
+    ## Save and Publish a Schema
+    
+    This topic explains how to save and publish a schema. After you create your schema, you can save the schema as a draft and publish it later for external applications to use it.
+    
+    The published version of the schema remains non-editable and non-removable forever. With published version, the application that want to use the schema can use it without being affected by the changes in the schema.
+    
+    There is no separate API for saving or publishing the schema. You can use the same `POST versions` endpoint and specify the following attributes with appropriate values.
+    
+    | Attributes              | Description
+    | -----------------       | -----------------------------------------------------------------------------------
+    | **extensionStatus**     |  Specify the status value as **draft** for saving the schema and **published** for publishing the schema. If you do not specify the version attribute along with this attribute, Forge Schema API automatically generates a new version number for your published schema.
+    | **version** (Optional)  |  If you want to specify the version in a specific format, specify the version attribute with the required version number. You do not need to specify this attribute if you want to use the default version that Forge Schema API provides.
+    
+    ## Example
+    
+    ```SHELL
+    data:
+      type: versions
+      attributes:
+        extensionId: 'contents:test.sandbox:MountainBike'
+        extensionStatus: draft or published
+        schema:
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          title: MountainBike
+          description: Schema of the MountainBike
+          type: object
+          required:
+            - type
+            - attributes
+          properties:
+            type:
+              description: SCHEMA-ONLY Base entity type extended by this type.
+              type: string
+              enum:
+                - contents
+            attributes:
+              type: object
+              required:
+                - extension
+              ...
+    ```
+    [@tutorials/view-schema-versions]: <>
+    ## View Schema Versions
+      
+      This topic explains how to view different Schema versions.
+      
+      The Extension Type Schema exposes a `GET versions` endpoint that allows you to retrieve different schema versions. You can retrieve draft versions, published versions, or specific version numbers.
+      
+      In a `GET` request, you need to specify the Id of the extension type from which you want to retrieve the schema versions.
+    
+    ## Example
+    
+    **Draft versions**
+    
+    ```SHELL
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-draft{?filter[schema][compile]}
+    ```
+    
+    After the `extensionTypeID`, specify the term “draft” to retrieve all draft versions of the schema.
+
+    **Published versions**
+  
+    ```SHELL
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-tip{? filter[schema][compile]}
+    ```
+    
+    After the `extensionTypeID`, specify the term “tip” to retrieve the latest published version of the schema.
+    
+    **Specific version**
+    
+    ```SHELL
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-{version}{?filter[schema][compile]}
+    ```
+    After the `extensionTypeID`, specify the actual version that you want to retrieve for your schema. All `GET` requests display the list of schemas that matches with the specified version type.
+    
+    [@tutorials/search-schema]: <>
+    # Search a Schema
+    
+      This topic explains how to search for a particular schema using filters that Forge Schema API provides.
+      
+      The Extension Type Schema exposes a `GET schemas` endpoint that allows you to search for a particular schema in your namespace and entity.
+      
+      In the `GET` request, you need to specify the filter criteria for your search.
+      
+    ## Filter syntax
+      
+    ###  Example
+      
+      ```SHELL
+      GET https://developer-stg.api.autodesk.com/schema/v1/schemas{?filters[schema][namespace],filters[schema][entity],filters[schema][extension],filters[schema][mimeType],filters[schema][schemaType],filters[schema][refType],filters[schema][fromAllowedTypes],filters[schema][toAllowedTypes],filters[schema][contentsAllowedTypes],filters[schema][contentsVisibleTypes],filters[schema][versionsAllowedTypes],filters[schema][implements],filters[schema][implementsVersion],filters[schema][linksAllowedTypes],filters[schema][id],page[number],page[size]}
+      ```
+      
+      You can use the filter criteria in the following format:
+      
+      ```SHELL
+      GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][namespace]=”test.namespace”
+      ```
+      
+      The following table describes the filters that you can use for searching a schema:
+      
+      | Filters                         | Description
+      | --------------------------------| -----------------------------------------------------------------------------------
+      | [schema][namespace]             | Displays all schemas in the specified namespace.
+      | [schema][entity]                |  Displays all schemas in the specified entity.
+      | [schema][extension]             | Displays all schemas for the specified extension.
+      | [schema][mimeType]              | Displays all schemas for the specified content type of the data. You can use mimetype for searching links type schemas.
+      | [schema][schemaType]            | Displays all schemas for the specified schema type. The schema type can be draft and published.
+      | [schema][refType]               | Displays all reference types schemas for the specified reference type. As a refType, you can use the following terms: **Derived**, **Dependency**, **Xref**, **auxiliary**.
+      | [schema][fromAllowedTypes]      | Displays all reference type schemas for the specified reference type that is used at the “from” end of the reference.
+      | [schema][toAllowedTypes]        | Displays all reference type schemas for the specified reference type that is used at the “to” end of the reference.
+      | [schema][contentsAllowedTypes]  | Displays all schemas for the specified allowed type of the content.
+      | [schema][versionsAllowedTypes]  | Displays all schemas for the specified allowed type of the versions.
+      | [schema][implements]            | Displays all schemas that implements the specified schema.
+      | [schema][implementsVersion]     | Displays all schemas that implements the specified schema version.
+      | [schema][linksAllowedTypes]     | Displays all schemas for the specified allowed type of the links.
+      | [schema][id]                    | Displays the schema for the specified schema Id.
+      | page[number]                    | The page number of the schema that you want to retrieve.
+      | page[size]                      | Total number of pages that you want to view for the schema.
+    
+    
+    [@tutorials/implement-or-inherit-schema]: <>
+    # Implement or Inherit a Schema 
+    
+      This topic explains how you can implement or inherit a schema to another schema.
+      
+      Forge Schema API provides an option by which you can implement a schema into another schema. Using implementation, you can establish the parent-child relationship between schemas and inherit the properties and attributes from the parent schema to the child schema.
+      
+      There is no separate API provided to implement a schema. You need to use the same `POST versions` endpoint that you use for creating a schema for your extension. 
+      
+      To implement a schema, you need to add the implement attribute in the child schema. This implement attribute contains the schema name and the schema version of the parent schema that you want to implement.
+      
+      When you implement a schema, you can use the properties defined in the parent schema to the child schema. Additionally, if you want to override or suppress the properties of the parent schema, you can use the override and suppress attributes for the corresponding properties in the child schema.
+      
+      **Note**: The **override** and **suppress** attributes are only available for the content entity.
+    
+    ## Example
+    
+    ```JSON
+    {
+    "data": {
+        "type": "versions",
+        "attributes": {
+            "extensionId": "contents:test.sandbox:MountainBike",
+            "extensionStatus": "published",
+            "schema": {
+                ...
+          ,"properties": {
+            ...
+            },
+            "attributes": {
+              "type": "object",
+              "required": [
+                "extension"
+              ],
+              "properties": {
+                "extension": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "data"
+                  ],
+                  "properties": {
+                    "type": {
+                     ...
+                    },
+                    "version": {
+                     ...
+                    },
+                    "namespace": {
+                      ...
+                    },
+                    "implements": {
+                      "type": "array",
+                      "description": "parent type this extension type implements",
+                      "items": [
+                        {
+                          "type": "object",
+                          "description": "list of parent types",
+                          "properties": {
+                            "extensionType": {
+                              "type": "string",
+                              "enum": [
+                                "contents:test.sandbox:Bicycle"
+                              ]
+                            },
+                            "version": {
+                              "type": "string",
+                              "enum": [
+                                "1.0.0"
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "data": {
+                      ....
+                    }
+                  }
+                }
+              }
+            }
+          }
+            }
+        }
+    }
+    ```
+  
+  version: "1.0.0"
+  
+# the domain of the service
+host: developer-stg.api.autodesk.com
+# array of all schemes that your API supports
+schemes:
+  - https
+consumes:
+  - application/vnd.api+json
+produces:
+  - application/vnd.api+json
+
+securityDefinitions:
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://developer.api.autodesk.com/authentication/v1/authorize
+    tokenUrl: https://developer.api.autodesk.com/authentication/v1/gettoken
+    flow: accessCode
+    scopes:
+      'data:read':   read your data
+      'data:write':  modify your data
+      'data:create': create new data
+    x-authentication_context: user context required
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://developer.api.autodesk.com/authentication/v1/authorize
+    flow: implicit
+    scopes:
+      'data:read':   read your data
+      'data:write':  modify your data
+      'data:create': create new data
+    x-authentication_context: user context required
+  oauth2_application:
+    type: oauth2
+    tokenUrl: https://developer.api.autodesk.com/authentication/v1/gettoken
+    flow: application
+    scopes:
+      'data:read':   read application accessible data
+      'data:write': write application accessible data
+      'data:create': create application accessible data
+    x-authentication_context: application context required
+
+paths:
+  '/schema/v1/namespaces':
+    x-summary: Namespaces
+    x-description: Namespaces for the schema
+    post:
+      operationId: createNamespace
+      description: |
+        Creates a new namespace.
+      parameters:
+        - in: body
+          name: body
+          description: Input schema          
+          required: true        
+          schema:
+            $ref: '#/definitions/json_api_input_namespace'
+      security:
+        [ { oauth2_access_code: [ 'data:create' ] }, { oauth2_implicit: [ 'data:create' ] }, { oauth2_application: [ 'data:create' ] } ]
+      responses:
+        '201': {$ref: '#/responses/createNamespace'} 
+    get:
+      operationId: getNamespaces
+      description: |
+        Retrieve all the available namespaces
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getNamespaces' }
+        
+  '/schema/v1/namespaces/{namespace}':
+    x-summary: Namespace Details
+    x-description: Retrieve a namespace
+    get:
+      operationId: getNamespace
+      description: |
+        Retrieve a particular namespace
+      parameters:
+        - $ref: '#/parameters/namespace'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getNamespace' }
+    patch:
+      description: Update namespace.
+      parameters:
+        - $ref: '#/parameters/namespace'
+        - in: body
+          name: body
+          description: Input schema          
+          required: true        
+          schema:
+            $ref: '#/definitions/json_api_input_namespace'
+      security:
+        [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] }, { oauth2_application: [ 'data:write' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getNamespace' }
+        
+  '/schema/v1/namespaces/{namespace}/entities':
+    x-summary: Entity types
+    x-description: Retrieve all the Entities within the namespace
+    get:
+      operationId: getNamespaceEntities
+      description: |
+        Retrieve all the Entities within the namespace
+      parameters:
+        - $ref: '#/parameters/namespace'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getNamespaceEntities' }
+        
+  '/schema/v1/entities/{entityId}':
+    x-summary: Entity Details
+    x-description: Retrieve an entity within the namespace
+    get:
+      operationId: getNamespaceEntity
+      description: |
+        Retrieve an entity within the namespace
+      parameters:
+        - $ref: '#/parameters/entityId'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getNamespaceEntity' }      
+      
+  '/schema/v1/entities/{entityId}/extensions':
+    x-summary: Extension Types
+    x-description: Create extension type within an entity
+    post:
+      operationId: createExtensionType
+      description: |
+        Create extension type within an entity. This API creates a folder for the extension which holds the schema versions.
+      parameters:
+        - $ref: '#/parameters/entityId'
+        - in: body
+          name: body
+          description: Input schema          
+          required: true        
+          schema:
+            $ref: '#/definitions/json_api_input_extention_type'
+      security:
+        [ { oauth2_access_code: [ 'data:create' ] }, { oauth2_implicit: [ 'data:create' ] }, { oauth2_application: [ 'data:create' ] } ]
+      responses:
+        '201': {$ref: '#/responses/createExtensionType'}
+    get:
+      operationId: getExtensions
+      description: |
+        Retrieve all the extension types available within an entity
+      parameters:
+        - $ref: '#/parameters/entityId'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getExtensionsForEntity' }         
+      
+  '/schema/v1/extensions/{extensionTypeId}':
+    x-summary: Extension Details
+    x-description: Retrieve Extension details
+    get:
+      operationId: getExtensionDetails
+      description: |
+        Retrieve Extension details
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getExtensionDetails' }   
+        
+  '/schema/v1/extensions/{extensionTypeId}/versions':
+    x-summary: Extension type Schema
+    x-description: Create a new schema for an Extension type.
+    post:
+      operationId: createExtensionSchema
+      description: |
+        Creates a new schema version for an extension. The extension type of the schema can be a "draft" or "published". The schema is passed as a JSON object inside the "schema" data attribute.
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+        - in: body
+          name: body
+          description: Input schema          
+          required: true        
+          schema:
+            $ref: '#/definitions/json_api_input_schema_document'   
+      security:
+        [ { oauth2_access_code: [ 'data:create' ] }, { oauth2_implicit: [ 'data:create' ] }, { oauth2_application: [ 'data:create' ] } ]
+      responses:
+        '201': {$ref: '#/responses/createExtensionSchema'}
+    get:
+      operationId: getExtensionSchemaVersions
+      description: |
+        Retrieve all the available version of an extension schema.
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+        - $ref: '#/parameters/versionType'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': {$ref: '#/responses/getExtensionSchemaVersions'}      
+        
+  '/schema/v1/versions/{extensionTypeId}-tip':
+    x-summary: Published Schema
+    x-description: Retrieve published Schema
+    get:
+      operationId: getPublishedSchema
+      description: |
+        Retrieves the latest published version schema of an extension type
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+        - $ref: '#/parameters/compile'
+      responses:
+        '200': { $ref: '#/responses/getPublishedSchema' } 
+  '/schema/v1/versions/{extensionTypeId}-draft':
+    x-summary: Draft Schema
+    x-description: Retrieve draft Schema
+    get:
+      operationId: getDraftSchema
+      description: |
+        Retrieves the draft version schema of an extension type
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+        - $ref: '#/parameters/compile'
+      responses:
+        '200': { $ref: '#/responses/getDraftSchema' } 
+  '/schema/v1/versions/{extensionTypeId}-{version}':
+    x-summary: Versioned Schema
+    x-description: Retrieve versioned extension type schema
+    get:
+      operationId: getVersionedSchema
+      description: |
+        Retrieve versioned extension type schema
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+        - $ref: '#/parameters/version'
+        - $ref: '#/parameters/compile'
+      responses:
+        '200': { $ref: '#/responses/getVersionedSchema' }
+  '/schema/v1/schemas':
+    x-summary: Schema Search
+    x-description: Search versioned extension type schema
+    get:
+      operationId: getSearchedVersionedSchema
+      description: |
+        Search for versioned schemas using filters, sorting and pagination.
+      parameters:
+        - $ref: '#/parameters/searchNamespace'
+        - $ref: '#/parameters/searchEntity'
+        - $ref: '#/parameters/searchExtension'
+        - $ref: '#/parameters/searchMimeType'
+        - $ref: '#/parameters/searchSchemaType'
+        - $ref: '#/parameters/searchRefType'
+        - $ref: '#/parameters/searchFromAllowedTypes'
+        - $ref: '#/parameters/searchToAllowedTypes'
+        - $ref: '#/parameters/searchContentsAllowedTypes'
+        - $ref: '#/parameters/searchContentsVisibleTypes'
+        - $ref: '#/parameters/searchVersionsAllowedTypes'
+        - $ref: '#/parameters/searchImplements'
+        - $ref: '#/parameters/searchImplementsVersion'
+        - $ref: '#/parameters/searchLinksAllowedTypes'
+        - $ref: '#/parameters/searchId'
+        - $ref: '#/parameters/pageNumber'
+        - $ref: '#/parameters/pageSize'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': { $ref: '#/responses/getSearchedVersionedSchema' }
+        
+parameters:
+  namespace:
+    name: namespace
+    in: path
+    description: the namespace of the schema
+    required: true
+    type: string
+  entityId:
+    name: entityId
+    in: path
+    description: the entity within the namespace
+    required: true
+    type: string    
+  publish:
+    name: publish
+    in: query
+    description: param to specify if the schema can be published
+    required: false
+    type: boolean
+    default: false
+  version:
+    name: version
+    in: path
+    description: param to specify the version of the schema. _**Note**:_ Value "latest" will return the latest versioned schema.
+    required: true
+    type: number
+  extensionTypeId:
+    name: extensionTypeId
+    in: path
+    description: param to specify the extension type Id.
+    required: true
+    type: string    
+  entityType:
+    name: entityType
+    in: path
+    description: param to specify the entity type.
+    required: true
+    type: string
+  pageNumber:
+    name: page[number]
+    in: query
+    description: requested page number
+    required: false
+    type: integer
+    format: int32
+    default: 0
+  pageSize:
+    name: page[size]
+    in: query
+    description: requested page size
+    required: false
+    type: integer
+    format: int32
+  searchNamespace:
+    name: filters[schema][namespace] 
+    in: query
+    description: param to specify namespace
+    required: false
+    type: string
+    default: false    
+  searchEntity:
+    name: filters[schema][entity]
+    in: query
+    description: param to specify entity
+    required: false
+    type: string
+    default: false
+  searchExtension:
+    name: filters[schema][extension]
+    in: query
+    description: param to specify extension
+    required: false
+    type: string
+    default: false
+  searchMimeType:
+    name: filters[schema][mimeType]
+    in: query
+    description: param to specify mimeType
+    required: false
+    type: string
+    default: false
+  searchSchemaType:
+    name: filters[schema][schemaType]
+    in: query
+    description: param to specify schemaType
+    required: false
+    type: string
+    default: false
+  searchRefType:
+    name: filters[schema][refType]
+    in: query
+    description: param to specify refType
+    required: false
+    type: string
+    default: false
+  searchFromAllowedTypes:
+    name: filters[schema][fromAllowedTypes]
+    in: query
+    description: param to specify fromAllowedTypes
+    required: false
+    type: string
+    default: false
+  searchToAllowedTypes:
+    name: filters[schema][toAllowedTypes]
+    in: query
+    description: param to specify toAllowedTypes
+    required: false
+    type: string
+    default: false
+  searchContentsAllowedTypes:
+    name: filters[schema][contentsAllowedTypes]
+    in: query
+    description: param to specify contentsAllowedTypes
+    required: false
+    type: string
+    default: false
+  searchContentsVisibleTypes:
+    name: filters[schema][contentsVisibleTypes]
+    in: query
+    description: param to specify contentsVisibleTypes
+    required: false
+    type: string
+    default: false
+  searchVersionsAllowedTypes:
+    name: filters[schema][versionsAllowedTypes]
+    in: query
+    description: param to specify versionsAllowedTypes
+    required: false
+    type: string
+    default: false
+  searchImplements:
+    name: filters[schema][implements]
+    in: query
+    description: param to specify implements
+    required: false
+    type: string
+    default: false
+  searchImplementsVersion:
+    name: filters[schema][implementsVersion]
+    in: query
+    description: param to specify implementsVersion
+    required: false
+    type: string
+    default: false
+  searchLinksAllowedTypes:
+    name: filters[schema][linksAllowedTypes]
+    in: query
+    description: param to specify linksAllowedTypes
+    required: false
+    type: string
+    default: false
+  searchId:
+    name: filters[schema][id]
+    in: query
+    description: param to specify id
+    required: false
+    type: string
+    default: false
+  versionType:
+    name: filters[schema][versionType]
+    in: query
+    description: param to specify version type
+    required: false
+    type: string
+    default: published
+    pattern: (published|all|pre_release)
+  compile: 
+    name: filter[schema][compile]
+    in: query
+    description: Combines this schema with the parents (***implements***) and Custom Type entity reference schema extensions data properties and relationship data. Default:```true```
+    required: false
+    type: boolean  
+    
+definitions:
+  json_api_error:
+    type: object
+    required: [ errors ]
+    properties:
+      errors:
+        type: object
+        properties:
+          id: { type: string, description: "a unique identifier for this particular occurrence of the problem" }
+          status: { type: string, description: "the HTTP status code applicable to this problem, expressed as a string value" }
+          code: { type: string, description: "an application-specific error code, expressed as a string value" }
+          title: { type: string, description: "a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization" }
+          detail: { type: string, description: "a human-readable explanation specific to this occurrence of the problem. Like title, this field's value can be localized" }
+          meta: { type: object, description: "a meta object containing non-standard meta-information about the error" }
+          links:
+            type: object
+            description: "a link that leads to further details about this particular occurrence of the problem"
+            required: [ about ]
+            properties:
+              about: { $ref: '#/definitions/json_api_link' }
+      
+  json_api_input_namespace:
+    type: object
+    required: [ data ]
+    properties:
+      data: { $ref: '#/definitions/json_api_input_namespace_data' }
+      
+  json_api_input_namespace_data:
+    type: object
+    required: [ type, attributes ]
+    description: 'json data'
+    properties:
+      type: { type: string, description: 'resource type', example: 'namespaces' }
+      attributes: { $ref: '#/definitions/json_api_input_namespace_data_attributes' }  
+
+  json_api_input_namespace_data_attributes:
+    type: object
+    required: [ name ]
+    properties:
+      name: { type: string, description: 'resource type', example: 'autodesk.bim360' }
+      roles: { type: object, description: 'app key role', example: '{ appkey1 : read, appkey2 : write }'}
+      
+  json_api_input_schema_document:
+    type: object
+    required: [ data ]
+    properties:
+      data: { $ref: '#/definitions/json_api_input_schema_document_data' }
+      
+  json_api_input_schema_document_data:
+    type: object
+    required: [ type, attributes ]
+    description: 'json data'
+    properties:
+      type: { type: string, description: 'resource type', example: 'versions' }
+      attributes: { $ref: '#/definitions/json_api_input_schema_document_data_attributes' }
+
+  json_api_input_schema_document_data_attributes:
+    type: object
+    required: [ extensionId, extensionStatus, schema ]
+    properties:
+      extensionId: { type: string, description: 'extension id', example: 'folders:autodesk.bim360:DesignFolder' }
+      extensionStatus: { type: string, description: 'schema extension status', example: 'draft' }
+      version: { type: string, description: 'custom schema version', example: '1.0.4, 2.0.4-Alpha1' }
+      schema: { $ref: '#/definitions/json_api_data_attributes_schema', example: 'https://git.autodesk.com/ACG-Cloud-Services/dmg-schema/tree/master/spec/examples' }
+      
+  json_api_data_attributes_schema:
+    type: object
+    
+  json_api_link:
+    type: object
+    required: [ href ]
+    properties:
+      href: { type: string }
+
+  json_api_input_extention_type:
+    type: object
+    required: [ data ]
+    properties:
+      data: { $ref: '#/definitions/json_api_input_extention_type_data' }
+  json_api_input_extention_type_data:
+    type: object
+    required: [ type, attributes ]
+    description: 'json data'
+    properties:
+      type: { type: string, description: 'resource type', example: 'extensions' }
+      attributes: { $ref: '#/definitions/json_api_input_extention_type_data_attributes' }  
+  json_api_input_extention_type_data_attributes:
+    type: object
+    required: [ name,entityId ]
+    properties:
+      name: { type: string, description: 'resource type', example: 'DesignFolder' }
+      entityId: { type: string, description: 'resource type', example: 'folders:autodesk.bim360' }
+
+responses:
+  createNamespace:
+    description: Successful response
+    schema:
+      title: schema
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+      Location:
+        description: |
+          Url to the new resource created
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "type": "namespaces",
+                "id": "A360",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-24T19:10:24Z",
+                    "createTime": "2016-05-24T19:10:24Z",
+                    "name": "A360"
+                },
+                "relationships": {
+                    "entities": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360"
+                }
+            },
+            "included": []
+        }
+        
+  createExtensionSchema:
+    description: Successful response
+    schema:
+      title: schema
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+      Location:
+        description: |
+          Url to the new resource created
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "id": "folders:BIM360:2015FolderExtension2",
+                "type": "Extension type",
+                "attributes": {
+                    "schema": {
+                        "NOTE": "Please refer to the Forge Schema section above"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/namespace/entityType/extensionType/versions/draft"
+            }
+        }      
+        
+  getExtensionSchemaVersions:
+    description: Successful response
+    schema:
+      title: schema
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+      Location:
+        description: |
+          Url to the new resource created
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": [
+                {
+                    "type": "versions",
+                    "id": "projects:A360:Project-draft",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T14:48:57Z",
+                        "createTime": "2016-05-18T14:48:57Z",
+                        "extensionStatus": "draft",
+                        "version": "draft"
+                    },
+                    "relationships": {},
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:A360:Project-draft"
+                    }
+                },
+                {
+                    "type": "versions",
+                    "id": "projects:A360:Project-1.0",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T14:49:02Z",
+                        "createTime": "2016-05-18T14:49:02Z",
+                        "extensionStatus": "published",
+                        "version": "1.0"
+                    },
+                    "relationships": {},
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:A360:Project-1.0"
+                    }
+                },
+                {
+                    "type": "versions",
+                    "id": "projects:A360:Project-1.1",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-19T14:49:02Z",
+                        "createTime": "2016-05-19T14:49:02Z",
+                        "extensionStatus": "published",
+                        "version": "1.1"
+                    },
+                    "relationships": {},
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:A360:Project-1.0"
+                    }
+                }
+            ],
+            "included": []
+        }         
+        
+  getNamespaces:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": [
+                {
+                    "type": "namespaces",
+                    "id": "A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "count": {
+                            "entities": 7
+                        },
+                        "name": "A360"
+                    },
+                    "relationships": {
+                        "entities": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360"
+                    }
+                },
+                {
+                    "type": "namespaces",
+                    "id": "BIM360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-16T12:05:49Z",
+                        "createTime": "2016-05-16T12:05:49Z",
+                        "count": {
+                            "entities": 7
+                        },
+                        "name": "BIM360"
+                    },
+                    "relationships": {
+                        "entities": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360/relationships/entities",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360/entities"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360"
+                    }
+                }
+            ],
+            "included": [],
+            "links": {
+                "prev": "",
+                "next": "",
+                "first": "",
+                "last": ""
+            }
+        }
+        
+  getNamespace:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "type": "namespaces",
+                "id": "A360",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T16:14:03Z",
+                    "createTime": "2016-05-18T16:14:03Z",
+                    "count": {
+                        "entities": 7
+                    },
+                    "name": "A360"
+                },
+                "relationships": {
+                    "entities": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360"
+                }
+            },
+            "included": []
+        }
+        
+  getNamespaceEntities:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": [
+                {
+                    "type": "entities",
+                    "id": "folders:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "folders"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "hubs:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "hubs"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "items:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "items"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "links:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "links"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "projects:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "projects"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "refs:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T16:14:03Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "name": "refs"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360"
+                    }
+                },
+                {
+                    "type": "entities",
+                    "id": "versions:A360",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T20:40:53Z",
+                        "createTime": "2016-05-18T16:14:03Z",
+                        "count": {
+                            "extensions": 1
+                        },
+                        "name": "versions"
+                    },
+                    "relationships": {
+                        "extensions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/relationships/extensions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/extensions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360"
+                    }
+                }
+            ],
+            "included": []
+        }   
+          
+  getNamespaceEntity:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "type": "entities",
+                "id": "versions:A360",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T20:40:53Z",
+                    "createTime": "2016-05-18T16:14:03Z",
+                    "count": {
+                        "extensions": 1
+                    },
+                    "name": "versions"
+                },
+                "relationships": {
+                    "extensions": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/relationships/extensions",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/extensions"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360"
+                }
+            },
+            "included": []
+        }
+          
+  createExtensionType:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "type": "extensions",
+                "id": "hubs:A360:hub1",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-24T19:23:13Z",
+                    "createTime": "2016-05-24T19:23:13Z",
+                    "name": "hub1"
+                },
+                "relationships": {
+                    "versions": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/relationships/versions",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/versions"
+                        }
+                    },
+                    "tip": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/relationships/tip",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/tip"
+                        },
+                        "data": null
+                    },
+                    "draft": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/relationships/draft",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1/draft"
+                        },
+                        "data": null
+                    }
+                },
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/hubs:A360:hub1"
+                }
+            },
+            "included": []
+        }
+          
+  getExtensionsForEntity:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": [
+                {
+                    "type": "extensions",
+                    "id": "versions:A360:CompositeDesign",
+                    "attributes": {
+                        "lastModifiedTime": "2016-05-18T20:40:55Z",
+                        "createTime": "2016-05-18T20:40:53Z",
+                        "name": "CompositeDesign"
+                    },
+                    "relationships": {
+                        "tip": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/tip",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/tip"
+                            },
+                            "data": null
+                        },
+                        "draft": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/draft",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/draft"
+                            },
+                            "data": null
+                        },
+                        "versions": {
+                            "links": {
+                                "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/versions",
+                                "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/versions"
+                            }
+                        }
+                    },
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign"
+                    }
+                }
+            ],
+            "included": [],
+            "links": {
+                "prev": "",
+                "next": "",
+                "first": "",
+                "last": ""
+            }
+        }
+        
+  getExtensionDetails:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json: 
+        {
+            "data": {
+                "type": "extensions",
+                "id": "versions:A360:CompositeDesign",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T20:40:55Z",
+                    "createTime": "2016-05-18T20:40:53Z",
+                    "name": "CompositeDesign"
+                },
+                "relationships": {
+                    "draft": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/draft",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/draft"
+                        },
+                        "data": null
+                    },
+                    "tip": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/tip",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/tip"
+                        },
+                        "data": null
+                    },
+                    "versions": {
+                        "links": {
+                            "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/relationships/versions",
+                            "related": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign/versions"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/extensions/versions:A360:CompositeDesign"
+                }
+            },
+            "included": []
+        }
+
+  getPublishedSchema:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json:
+        {
+            "data": {
+                "type": "versions",
+                "id": "projects:CORE:Project-tip",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T14:49:02Z",
+                    "schema": {
+                        "NOTE": "Please refer to the Forge Schema section above"
+                    },
+                    "createTime": "2016-05-18T14:49:02Z",
+                    "extensionId": "projects:CORE:Project",
+                    "extensionStatus": "published",
+                    "version": "tip"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:CORE:Project-tip"
+                }
+            },
+            "included": []
+        }
+        
+  getDraftSchema:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json:
+        {
+            "data": {
+                "type": "versions",
+                "id": "projects:CORE:Project-draft",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T14:48:57Z",
+                    "schema": {
+                        "NOTE": "Please refer to the Forge Schema section above"
+                    },
+                    "createTime": "2016-05-18T14:48:57Z",
+                    "extensionId": "projects:CORE:Project",
+                    "extensionStatus": "draft",
+                    "version": "draft"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:CORE:Project-draft"
+                }
+            },
+            "included": []
+        }      
+        
+  getVersionedSchema:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json:
+        {
+            "data": {
+                "type": "versions",
+                "id": "projects:CORE:Project-1.0",
+                "attributes": {
+                    "lastModifiedTime": "2016-05-18T14:49:02Z",
+                    "schema": {
+                        "NOTE": "Please refer to the Forge Schema section above"
+                    },
+                    "createTime": "2016-05-18T14:49:02Z",
+                    "extensionId": "projects:CORE:Project",
+                    "extensionStatus": "published",
+                    "version": "1.0"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:CORE:Project-1.0"
+                }
+            },
+            "included": []
+        }
+  getSearchedVersionedSchema:
+    description: Successful response
+    schema:
+      title: schema versions
+      type: object
+      allOf:
+      - type: object
+    headers:
+      etag:
+        description: |
+          `etag` for the resource which can be used for cache optimization
+          and must be used for mutating operations on this resource
+        type: string
+    examples:
+      application/vnd.api+json:
+        {
+            "data": [
+                {
+                    "type": "schemas",
+                    "id": "folders:autodesk.core:Folder-1.0",
+                    "attributes": {
+                        "extension": "Folder",
+                        "entity": "folders",
+                        "dateCreated": "2016-06-15T22:48:17Z",
+                        "version": "1.0",
+                        "namespace": "autodesk.core"
+                    },
+                    "relationships": {},
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com:443/schema-alpha/v1/schemas/folders:autodesk.core:Folder-1.0"
+                    }
+                },
+                {
+                    "type": "schemas",
+                    "id": "projects:autodesk.core:Project-1.0",
+                    "attributes": {
+                        "extension": "Project",
+                        "entity": "projects",
+                        "dateCreated": "2016-06-15T22:48:17Z",
+                        "version": "1.0",
+                        "namespace": "autodesk.core"
+                    },
+                    "relationships": {},
+                    "links": {
+                        "self": "https://developer-stg.api.autodesk.com:443/schema-alpha/v1/schemas/projects:autodesk.core:Project-1.0"
+                    }
+                }
+            ]
+        }
