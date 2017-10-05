@@ -653,7 +653,7 @@ info:
       first: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:autodesk.content.test/extensions?page[number]=1&page[size]=20'
       last: 'https://developer-stg.api.autodesk.com/schema-alpha/v1/entities/contents:autodesk.content.test/extensions?page[number]=1&page[size]=20'
     ```
-    [@overview/tutorials]: <>
+    [@tutorials]: <>
     # Step-by-Step Tutorials
       
       The Forge Schema API service provides a set of APIs for developers to access and manage the schema for your resources. 
