@@ -232,6 +232,7 @@ info:
       When you create a schema, you must ensure that the schema is a valid schema. The valid schema consists of a valid syntax, structure, reference types, description, and data.
       
       You must check the following points to ensure that the schema is valid:
+      
       * **Structure**: All basic attributes exist and comply with regular expression rules as specified in the schema document.
       * **Description**: Each element defined in specification has a description field.
       * **Referenced Types**: Any referenced types actually exist. If reference includes a version number, that version actually exist.
@@ -267,8 +268,8 @@ info:
     ## Common Properties section 
     
       This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
-    
-      ```JSON
+      
+      ```json
       {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
