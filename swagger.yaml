@@ -270,60 +270,60 @@ info:
       This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
       
       ```JSON
-      {
-        "$schema": "http://json-schema.org/draft-04/schema#",
-        "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
-        "type": "object",
-        "required": [
-          "type",
-          "attributes"
-        ],
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "contents"
-            ],
-            "description": "SCHEMA-ONLY Base entity type extended by this type. Can be contents"
-          },
-          "attributes": {
-            "type": "object",
-            "required": [
-              "extension"
-            ],
-            "properties": {
-              "extension": {
-                "type": "object",
-                "required": [
-                  "type",
-                  "data"
-                ],
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "contents:autodesk.content.test:toolsChildContent"
-                    ],
-                    "description": "Extension for toolsChildContent"
-                  },
-                  "version": {
-                    "type": "string",
-                    "description": "draft"
-                  },
-                  "namespace": {
-                    "type": "string",
-                    "enum": [
-                      "autodesk.content.test"
-                    ],
-                    "description": "Namespace to which this extensionType belongs"
-                    ...
+        {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
+          "type": "object",
+          "required": [
+            "type",
+            "attributes"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "contents"
+              ],
+              "description": "SCHEMA-ONLY Base entity type extended by this type. Can be contents"
+            },
+            "attributes": {
+              "type": "object",
+              "required": [
+                "extension"
+              ],
+              "properties": {
+                "extension": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "data"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "contents:autodesk.content.test:toolsChildContent"
+                      ],
+                      "description": "Extension for toolsChildContent"
+                    },
+                    "version": {
+                      "type": "string",
+                      "description": "draft"
+                    },
+                    "namespace": {
+                      "type": "string",
+                      "enum": [
+                        "autodesk.content.test"
+                      ],
+                      "description": "Namespace to which this extensionType belongs"
+                      ...
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
       ```
     ## Extension Data section
       
@@ -661,11 +661,11 @@ info:
       
       In this section, we provide some step-by-step tutorials demonstrating how the Forge Schema API works:
     
-    ## Create a New Namespace
+    ## [Create a New Namespace](/en/docs/schema/v1/tutorials/create-new-namespace)
     
       This tutorial explains how to create a namespace for your Autodesk product.
     
-    ## [View Entities](/en/docs/schema/v1/tutorials/create-new-namespace)
+    ## [View Entities](/en/docs/schema/v1/tutorials/view-entities)
     
       This tutorial explains how to view the entities in the namespace. When you create a namespace, the predefined entities are automatically created in the namespace.
     
@@ -1089,36 +1089,36 @@ info:
       
     ###  Example
       
-      ```SHELL
+      ```Shell
       GET https://developer-stg.api.autodesk.com/schema/v1/schemas{?filters[schema][namespace],filters[schema][entity],filters[schema][extension],filters[schema][mimeType],filters[schema][schemaType],filters[schema][refType],filters[schema][fromAllowedTypes],filters[schema][toAllowedTypes],filters[schema][contentsAllowedTypes],filters[schema][contentsVisibleTypes],filters[schema][versionsAllowedTypes],filters[schema][implements],filters[schema][implementsVersion],filters[schema][linksAllowedTypes],filters[schema][id],page[number],page[size]}
       ```
       
       You can use the filter criteria in the following format:
       
-      ```SHELL
+      ```Shell
       GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][namespace]=”test.namespace”
       ```
       
       The following table describes the filters that you can use for searching a schema:
       
-      | Filters                         | Description
-      | --------------------------------| -----------------------------------------------------------------------------------
-      | [schema][namespace]             | Displays all schemas in the specified namespace.
-      | [schema][entity]                |  Displays all schemas in the specified entity.
-      | [schema][extension]             | Displays all schemas for the specified extension.
-      | [schema][mimeType]              | Displays all schemas for the specified content type of the data. You can use mimetype for searching links type schemas.
-      | [schema][schemaType]            | Displays all schemas for the specified schema type. The schema type can be draft and published.
-      | [schema][refType]               | Displays all reference types schemas for the specified reference type. As a refType, you can use the following terms: **Derived**, **Dependency**, **Xref**, **auxiliary**.
-      | [schema][fromAllowedTypes]      | Displays all reference type schemas for the specified reference type that is used at the “from” end of the reference.
-      | [schema][toAllowedTypes]        | Displays all reference type schemas for the specified reference type that is used at the “to” end of the reference.
-      | [schema][contentsAllowedTypes]  | Displays all schemas for the specified allowed type of the content.
-      | [schema][versionsAllowedTypes]  | Displays all schemas for the specified allowed type of the versions.
-      | [schema][implements]            | Displays all schemas that implements the specified schema.
-      | [schema][implementsVersion]     | Displays all schemas that implements the specified schema version.
-      | [schema][linksAllowedTypes]     | Displays all schemas for the specified allowed type of the links.
-      | [schema][id]                    | Displays the schema for the specified schema Id.
-      | page[number]                    | The page number of the schema that you want to retrieve.
-      | page[size]                      | Total number of pages that you want to view for the schema.
+      | Filters                             | Description
+      | ------------------------------------| -----------------------------------------------------------------------------------
+      | **[schema][namespace]**             | Displays all schemas in the specified namespace.
+      | **[schema][entity]**                |  Displays all schemas in the specified entity.
+      | **[schema][extension]**             | Displays all schemas for the specified extension.
+      | **[schema][mimeType]**              | Displays all schemas for the specified content type of the data. You can use mimetype for searching links type schemas.
+      | **[schema][schemaType]**            | Displays all schemas for the specified schema type. The schema type can be draft and published.
+      | **[schema][refType]**               | Displays all reference types schemas for the specified reference type. As a refType, you can use the following terms: **Derived**, **Dependency**, **Xref**, **auxiliary**.
+      | **[schema][fromAllowedTypes]**      | Displays all reference type schemas for the specified reference type that is used at the “from” end of the reference.
+      | **[schema][toAllowedTypes]**        | Displays all reference type schemas for the specified reference type that is used at the “to” end of the reference.
+      | **[schema][contentsAllowedTypes]**  | Displays all schemas for the specified allowed type of the content.
+      | **[schema][versionsAllowedTypes]**  | Displays all schemas for the specified allowed type of the versions.
+      | **[schema][implements]**            | Displays all schemas that implements the specified schema.
+      | **[schema][implementsVersion]**     | Displays all schemas that implements the specified schema version.
+      | **[schema][linksAllowedTypes]**     | Displays all schemas for the specified allowed type of the links.
+      | **[schema][id]**                    | Displays the schema for the specified schema Id.
+      | **page[number]**                    | The page number of the schema that you want to retrieve.
+      | **page[size]**                      | Total number of pages that you want to view for the schema.
     
     
     [@tutorials/implement-or-inherit-schema]: <>
@@ -1141,13 +1141,13 @@ info:
     ```JSON
     {
     "data": {
-        "type": "versions",
-        "attributes": {
-            "extensionId": "contents:test.sandbox:MountainBike",
-            "extensionStatus": "published",
-            "schema": {
-                ...
-          ,"properties": {
+      "type": "versions",
+      "attributes": {
+        "extensionId": "contents:test.sandbox:MountainBike",
+        "extensionStatus": "published",
+        "schema": {
+          ...
+          "properties": {
             ...
             },
             "attributes": {
@@ -1204,8 +1204,8 @@ info:
               }
             }
           }
-            }
         }
+      }
     }
     ```
   
