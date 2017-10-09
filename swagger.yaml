@@ -28,7 +28,7 @@ info:
     
     Forge Schema provides a set of APIs that allows to create a template for defining the project structure, metadata, and define how to store the data from various Autodesk applications in a particular format. 
 
-    For additional information about schema entities, see the `Schema Structure </en/docs/schema/v1/overview/schema-structure>`_.
+    For additional information about schema entities, see the [Schema Structure](/en/docs/schema/v1/overview/schema-structure).
     
     ## Standards
     
@@ -269,7 +269,7 @@ info:
     
       This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
       
-      ```json
+      ```JSON
       {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
@@ -560,16 +560,16 @@ info:
     
       An entity provides a common representation for different folders for Autodesk products, like BIM 360, A360. It contains the following attributes:
     
-    | Attributes         | Description
-    | ------      | -----------------------------------------------------------------------------------
-    | **name**       |  The name of the entity.
-    | **lastModifiedTime** |  The date and time when the entity is modified last time.
-    | **createTime**     |  The date and time when the entity is created.
+    | Attributes            | Description
+    | ----------------      | -----------------------------------------------------------------------------------
+    | **name**              |  The name of the entity.
+    | **lastModifiedTime**  |  The date and time when the entity is modified last time.
+    | **createTime**        |  The date and time when the entity is created.
     
     ### Relationship
     
-    | Name        | Type | Description
-    | ------      | -----| ----------------------------------------------------------------------------
+    | Name        | Type      | Description
+    | ------      | ----------| ----------------------------------------------------------------------------
     | **entity**  | 1-to-many | Extensions contained within the entity.
     | **link**    | 1-to-many | Entities linked to the Autodesk product.
     
@@ -598,18 +598,18 @@ info:
       
     Extension represents the type of extension data that you want to store for your Autodesk application. You can create different extensions for each entity.
     
-    | Attributes         | Description
-    | ------      | -----------------------------------------------------------------------------------
-    | **name**       |  The name of the extension.
-    | **lastModifiedTime** |  The date and time when the extension is modified last time.
-    | **createTime**     |  The date and time when the extension is created.
+    | Attributes            | Description
+    | ----------------      | -----------------------------------------------------------------------------------
+    | **name**              |  The name of the extension.
+    | **lastModifiedTime**  |  The date and time when the extension is modified last time.
+    | **createTime**        |  The date and time when the extension is created.
     
     ### Relationship
     
-    | Name        | Type | Description
-    | ------      | -----| ----------------------------------------------------------------------------
+    | Name          | Type      | Description
+    | ------------- | --------- | ----------------------------------------------------------------------------
     | **versions**  | many-to-1 | Different versions created from the draft version.
-    | **link**    | many-to-1 | Different versions of the extensions linked to an entity.
+    | **link**      | many-to-1 | Different versions of the extensions linked to an entity.
     
     ### Example Object
     
@@ -665,31 +665,31 @@ info:
     
       This tutorial explains how to create a namespace for your Autodesk product.
     
-    ## View Entities
+    ## [View Entities](/en/docs/schema/v1/tutorials/create-new-namespace)
     
       This tutorial explains how to view the entities in the namespace. When you create a namespace, the predefined entities are automatically created in the namespace.
     
-    ## Create an Extension Type
+    ## [Create an Extension Type](/en/docs/schema/v1/tutorials/create-extension-type)
     
       This tutorial explains how to create an extension type in a required entity. To create a schema, you need to create an extension type where you can create your schema and store different versions of the schemas.
     
-    ## Create a New Schema for an Extension Type
+    ## [Create a New Schema for an Extension Type](/en/docs/schema/v1/tutorials/create-new-schema-for-extension-type)
       
       This tutorial explains how to create a new schema for your extension type.
     
-    ## Save and Publish a Schema
+    ## [Save and Publish a Schema](/en/docs/schema/v1/tutorials/save-and-publish-schema)
     
       This tutorial explains how to publish your schema. You need to publish your schema so that the Autodesk applications can use the schema.
     
-    ## View Schema Versions
+    ## [View Schema Versions](/en/docs/schema/v1/tutorials/view-schema-versions)
     
       This tutorial explains how you can view different versions and different types of versions of your schema. The version types can be draft versions and published versions.
     
-    ## Search a Schema
+    ## [Search a Schema](/en/docs/schema/v1/tutorials/search-schema)
       
       This tutorial explains how you can search a schema. The API request provides different filter conditions that you can use to quickly search the required schema.
     
-    ## Implement or Inherit a Schema
+    ## [Implement or Inherit a Schema](/en/docs/schema/v1/tutorials/implement-or-inherit-schema)
       
       This tutorial explains how you can implement a schema into another schema and create a parent-child relationship between schemas.
     
