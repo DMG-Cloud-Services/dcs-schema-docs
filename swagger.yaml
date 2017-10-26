@@ -1502,7 +1502,7 @@ parameters:
     in: path
     description: param to specify the version of the schema. _**Note**:_ Value "latest" will return the latest versioned schema.
     required: true
-    type: number
+    type: string
   extensionTypeId:
     name: extensionTypeId
     in: path
