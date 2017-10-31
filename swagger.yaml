@@ -104,7 +104,7 @@ info:
       * [Entity](#Entity)
       * [Extension](#Extension)
       
-      ![Forge Schema Structure](https://git.autodesk.com/ACG-Cloud-Services/dmg-documentation/blob/master/schema_structure.png?raw=true "Schema Structure")
+      ![Forge Schema Structure](https://raw.git.autodesk.com/ACG-Cloud-Services/dmg-documentation/master/schema_structure.png?token=AAAf_nijEPQrzWPu_9EMgrd1Fk071gFBks5aAZq7wA%3D%3D "Schema Structure")
       
       The components of the schema are arranged in a specific hierarchy as shown below:
       
