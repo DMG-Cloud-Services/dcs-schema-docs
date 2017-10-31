@@ -1208,6 +1208,38 @@ info:
       }
     }
     ```
+    
+    # HTTP Specification
+    
+    ## Namespaces
+    
+    The following are the supported endpoints and methods related to Namespaces.
+    
+    .. include:: ../../_snippets/v1/reference/namespaces.rst
+    
+    ## Entities
+    
+    The following are the supported endpoints and methods related to Entities.
+    
+    .. include:: ../../_snippets/v1/reference/entities.rst
+    
+    ## Extensions
+    
+    The following are the supported endpoints and methods related to Extensions.
+    
+    include: ../../_snippets/v1/reference/extensions.rst
+    
+    ## Schemas
+    
+    The following are the supported endpoints and methods related to Schemas.
+    
+    include: ../../_snippets/v1/reference/schemas.rst
+  
+    ## Versions
+    
+    The following are the supported endpoints and methods related to Versions.
+    
+    include: ../../_snippets/v1/reference/versions.rst
   
   version: "1.0.0"
   
