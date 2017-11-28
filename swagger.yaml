@@ -40,7 +40,7 @@ info:
     
     4. Element names are camelCase e.g. ``rootFolder``
     5. Most operations work with both 2 and 3 legged oauth keys. In case a 2 legged oauth key is used - some fields like userId may be empty (or use application name)
-    6. You need to specify the Schema inside the "data":"attributes":"schema" attribute of the POST request body. For more information, see JSON schema examples for extension types [here](en/docs/schema/examples).
+    6. You need to specify the Schema inside the "data":"attributes":"schema" attribute of the POST request body. For more information, see JSON schema examples for extension types [here](en/docs/schema/_snippets/v1/examples).
 
     ## HTTP Verbs
     
@@ -698,7 +698,7 @@ info:
       
       Before you start creating and managing your schemas, ensure that you have [registered an app](https://developer.autodesk.com/en/docs/oauth/v2/tutorials/create-app) and successfully [acquired an OAuth token](https://developer.autodesk.com/en/docs/oauth/v2/tutorials).
       
-      See the Authentication and Scopes section in the [API Basics](https://developer.autodesk.com/en/docs/data/v2/overview/basics) for the appropriate token based on the data you are accessing.
+      See the Authentication and Scopes section in the [API Basics](https://developer.autodesk.com/en/docs/schema/v1/overview/basics) for the appropriate token based on the data you are accessing.
       
       In general, access to BIM 360 Team, BIM 360 Docs, Fusion Team, and A360 Personal data requires the use of a [3-legged OAuth2 token](https://developer.autodesk.com/en/docs/oauth/v2/tutorials/get-3-legged-token).
       
