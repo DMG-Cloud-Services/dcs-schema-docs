@@ -269,62 +269,62 @@ info:
     
       This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
       
-      ```JSON
-        {
-          "$schema": "http://json-schema.org/draft-04/schema#",
-          "description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
-          "type": "object",
-          "required": [
-            "type",
-            "attributes"
-          ],
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "contents"
-              ],
-              "description": "SCHEMA-ONLY Base entity type extended by this type. Can be contents"
-            },
-            "attributes": {
-              "type": "object",
-              "required": [
-                "extension"
-              ],
-              "properties": {
-                "extension": {
-                  "type": "object",
-                  "required": [
-                    "type",
-                    "data"
-                  ],
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "contents:autodesk.content.test:toolsChildContent"
-                      ],
-                      "description": "Extension for toolsChildContent"
-                    },
-                    "version": {
-                      "type": "string",
-                      "description": "draft"
-                    },
-                    "namespace": {
-                      "type": "string",
-                      "enum": [
-                        "autodesk.content.test"
-                      ],
-                      "description": "Namespace to which this extensionType belongs"
-                      ...
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+      ```json
+      {
+      	"$schema": "http://json-schema.org/draft-04/schema#",
+      	"description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
+      	"type": "object",
+      	"required": [
+      		"type",
+      		"attributes"
+      	],
+      	"properties": {
+      		"type": {
+      			"type": "string",
+      			"enum": [
+      				"contents"
+      			],
+      			"description": "SCHEMA-ONLY Base entity type extended by this type. Can be contents"
+      		},
+      		"attributes": {
+      			"type": "object",
+      			"required": [
+      				"extension"
+      			],
+      			"properties": {
+      				"extension": {
+      					"type": "object",
+      					"required": [
+      						"type",
+      						"data"
+      					],
+      					"properties": {
+      						"type": {
+      							"type": "string",
+      							"enum": [
+      								"contents:autodesk.content.test:toolsChildContent"
+      							],
+      							"description": "Extension for toolsChildContent"
+      						},
+      						"version": {
+      							"type": "string",
+      							"description": "draft"
+      						},
+      						"namespace": {
+      							"type": "string",
+      							"enum": [
+      								"autodesk.content.test"
+      							],
+      							"description": "Namespace to which this extensionType belongs"
+      						}
+      					}
+      				}
+      			}
+      		}
+      	}
+      }
       ```
+    
     ## Extension Data section
       
       This section contains the actual extended properties that you want to use to store your data. For each property, you can define the name, type, description, and the required status.
