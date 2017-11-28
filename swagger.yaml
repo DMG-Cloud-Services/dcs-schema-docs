@@ -1227,19 +1227,19 @@ info:
     
     The following are the supported endpoints and methods related to Extensions.
     
-    include: ../../_snippets/v1/reference/extensions.rst
+    .. include: ../../_snippets/v1/reference/extensions.rst
     
     ## Schemas
     
     The following are the supported endpoints and methods related to Schemas.
     
-    include: ../../_snippets/v1/reference/schemas.rst
+    .. include: ../../_snippets/v1/reference/schemas.rst
   
     ## Versions
     
     The following are the supported endpoints and methods related to Versions.
     
-    include: ../../_snippets/v1/reference/versions.rst
+    .. include: ../../_snippets/v1/reference/versions.rst
   
   version: "1.0.0"
   
