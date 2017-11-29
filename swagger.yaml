@@ -40,7 +40,7 @@ info:
     
     4. Element names are camelCase e.g. ``rootFolder``
     5. Most operations work with both 2 and 3 legged oauth keys. In case a 2 legged oauth key is used - some fields like userId may be empty (or use application name)
-    6. You need to specify the Schema inside the "data":"attributes":"schema" attribute of the POST request body. For more information, see JSON schema examples for extension types [here](en/docs/schema/_snippets/v1/examples).
+    6. You need to specify the Schema inside the "data":"attributes":"schema" attribute of the POST request body. For more information, see JSON schema examples for extension types [here](/en/docs/schema/_snippets/v1/examples).
 
     ## HTTP Verbs
     
@@ -100,9 +100,9 @@ info:
       
     This structure consists of the following components:
       
-      * [Namespace](#Namespace)
-      * [Entity](#Entity)
-      * [Extension](#Extension)
+      * [Namespace](#namespace)
+      * [Entity](#entity)
+      * [Extension](#extension)
       
       ![Forge Schema Structure](https://raw.git.autodesk.com/ACG-Cloud-Services/dmg-documentation/master/schema_structure.png?token=AAAf_m_8hWQ3CuC20seuWoITurAcSVRmks5aJnQ7wA%3D%3D "Schema Structure")
       
