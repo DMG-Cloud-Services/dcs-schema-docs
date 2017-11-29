@@ -750,7 +750,7 @@ info:
     ```
     
     [@tutorials/view-entities]: <>
-    ## View Entities
+    # View Entities
     
     This topic explains how to view the entities in a particular namespace. In entities, you can create different types of extensions and schemas for your application. For more information about entities, see Entity.
     
@@ -917,7 +917,7 @@ info:
     ```
     
     [@tutorials/create-extension-type]: <>
-    ## Create an Extension Type
+    # Create an Extension Type
     
     This topic explains how to create a new extension type in a specific entity. You create an extension type first and then attach a required schema to that extension type.
     
@@ -1001,7 +1001,7 @@ info:
     Forge Schema API validates the schema and if it is correct, the resource provides a successful response.
     
     [@tutorials/save-and-publish-schema]: <>
-    ## Save and Publish a Schema
+    # Save and Publish a Schema
     
     This topic explains how to save and publish a schema. After you create your schema, you can save the schema as a draft and publish it later for external applications to use it.
     
@@ -1043,7 +1043,7 @@ info:
               ...
     ```
     [@tutorials/view-schema-versions]: <>
-    ## View Schema Versions
+    # View Schema Versions
       
       This topic explains how to view different Schema versions.
       
