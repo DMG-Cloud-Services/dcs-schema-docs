@@ -216,7 +216,7 @@ info:
     
     When you first create a schema, Forge Schema API creates a draft version of that schema. You can publish this draft version multiple times and create different versions each with different attributes and properties. 
     
-    The published versions can be major versions or minor versions, which depends on the backward compatibility that Forge determines.
+    The published versions can be major versions or minor versions or patch versions, which depends on the backward compatibility that Forge determines.
     
     **Note**: For each schema only one draft version is allowed. This draft version remains editable for the owner of the schema, whereas all the published versions always remain non-editable and non-removable for any user.
     
