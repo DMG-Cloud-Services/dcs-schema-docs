@@ -100,6 +100,7 @@ info:
       
     This structure consists of the following components:
       
+      * [Company](#compnay)
       * [Namespace](#namespace)
       * [Entity](#entity)
       * [Extension](#extension)
@@ -107,7 +108,15 @@ info:
       ![Forge Schema Structure](https://raw.githubusercontent.com/DMG-Cloud-Services/dcs_doc_images/master/schema/schema_structure.png "Schema Structure")
       
       The components of the schema are arranged in a specific hierarchy as shown below:
+    
+    ##<a name="company"></a>Company
       
+      A company is a logical grouping of namespaces. It organizes the namespaces as per the company name.
+      
+      E.g. All the namespaces for Autodesk are stored under autodesk.
+      
+      >**Note**: Only FSS team can create a Company. For more details please contact FSS team at #dmg-internal-schema slack channel.
+    
     ##<a name="namespace"></a>Namespace
       
       A namespace is a logical grouping of policies and resources within your domain. The namespace also resembles to an account with your domain.
