@@ -105,10 +105,10 @@ info:
       * [Entity](#entity)
       * [Extension](#extension)
       
+      The components of the schema are arranged in a specific hierarchy as shown below:
+      
       ![Forge Schema Structure](https://raw.githubusercontent.com/DMG-Cloud-Services/dcs_doc_images/master/schema/new_schema_structure.jpg "Schema Structure")
       
-      The components of the schema are arranged in a specific hierarchy as shown below:
-    
     ##<a name="company"></a>Company
       
       A company is a logical grouping of namespaces. It organizes the namespaces as per the company name.
