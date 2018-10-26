@@ -105,7 +105,7 @@ info:
       * [Entity](#entity)
       * [Extension](#extension)
       
-      ![Forge Schema Structure](https://raw.githubusercontent.com/DMG-Cloud-Services/dcs_doc_images/master/schema/schema_structure.png "Schema Structure")
+      ![Forge Schema Structure](https://raw.githubusercontent.com/DMG-Cloud-Services/dcs_doc_images/master/schema/new_schema_structure.jpg "Schema Structure")
       
       The components of the schema are arranged in a specific hierarchy as shown below:
     
