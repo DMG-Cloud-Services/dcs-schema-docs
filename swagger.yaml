@@ -121,7 +121,7 @@ info:
       
       A namespace is a logical grouping of policies and resources within your domain. The namespace also resembles to an account with your domain.
       
-      All entities, extensions, and schemas are contained within the namespace. This allows clear separation and ownership of domains. For example, BIM360, and A360.
+      All entities, extensions, and schemas are contained within the namespace. This allows clear separation and ownership of domains. For example, BIM360, and A360. Namespace can contain the subnamespaces.
       
       Once you create a namespace, the new namespace is assigned to the creator as the owner. Only the owner of the namespace can edit their namespaces. Owner can transfer the ownership of the namespace to different owner.
       
