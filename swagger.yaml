@@ -1315,6 +1315,8 @@ paths:
       operationId: getNamespaces
       description: |
         Retrieve all the available namespaces
+      parameters:
+        - $ref: '#/parameters/companyId'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
@@ -1689,7 +1691,14 @@ parameters:
     in: query
     description: Combines this schema with the parents (***implements***) and Custom Type entity reference schema extensions data properties and relationship data. Default:```true```
     required: false
-    type: boolean  
+    type: boolean
+  companyId:
+    name: filters[schema][companyId]
+    in: query
+    description: param to get namepsaces by companyId
+    required: false
+    type: string
+    default: false
     
 definitions:
   json_api_error:
