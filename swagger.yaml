@@ -767,7 +767,7 @@ info:
     
     Each entity corresponds to a specific type of extension and schema. So, you can create different type of extension and the schema. You can retrieve the entities to know which type of extension and schema you want to create and accordingly specify the entity when creating the extension type and schema.
     
-    >**Note**: To invoke this API you will need bearer token generated with data:search scope.
+    >**Note**: To invoke this API you will need bearer token generated with `data:search` scope.
     
     ## Example
 
