@@ -1956,62 +1956,727 @@ responses:
     examples:
       application/vnd.api+json: 
         {
-            "data": [
-                {
-                    "type": "namespaces",
-                    "id": "A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "count": {
-                            "entities": 7
-                        },
-                        "name": "A360"
-                    },
-                    "relationships": {
-                        "entities": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities"
-                            }
-                        }
-                    },
+    "data": [
+        {
+            "type": "namespaces",
+            "id": "autodesk.appplugin",
+            "attributes": {
+                "lastModifiedTime": "2018-10-25T19:00:31Z",
+                "createTime": "2018-10-25T18:58:45Z",
+                "name": "appplugin",
+                "count": {
+                    "entities": 12,
+                    "namespaces": 2
+                }
+            },
+            "relationships": {
+                "namespaces": {
                     "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360"
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/namespaces"
                     }
                 },
-                {
-                    "type": "namespaces",
-                    "id": "BIM360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-16T12:05:49Z",
-                        "createTime": "2016-05-16T12:05:49Z",
-                        "count": {
-                            "entities": 7
-                        },
-                        "name": "BIM360"
-                    },
-                    "relationships": {
-                        "entities": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360/relationships/entities",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360/entities"
-                            }
-                        }
-                    },
+                "entities": {
                     "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/BIM360"
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin/companies"
                     }
                 }
-            ],
-            "included": [],
+            },
             "links": {
-                "prev": "",
-                "next": "",
-                "first": "",
-                "last": ""
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.appplugin"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T09:56:54Z",
+                "createTime": "2016-06-10T02:47:17Z",
+                "name": "a360",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.ace",
+            "attributes": {
+                "lastModifiedTime": "2018-07-31T06:34:41Z",
+                "createTime": "2018-02-22T11:18:11Z",
+                "name": "ace",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.ace"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.au",
+            "attributes": {
+                "lastModifiedTime": "2018-08-31T01:30:00Z",
+                "createTime": "2017-10-27T02:10:04Z",
+                "name": "au",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.au"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.bim360",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T06:25:54Z",
+                "createTime": "2016-06-10T01:27:47Z",
+                "name": "bim360",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.bim360"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.computationgraph",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T10:28:35Z",
+                "createTime": "2018-04-03T22:20:30Z",
+                "name": "computationgraph",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.computationgraph"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.core",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T06:16:39Z",
+                "createTime": "2016-06-08T13:22:05Z",
+                "name": "core",
+                "count": {
+                    "entities": 12,
+                    "namespaces": 1
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.dreamcatcher",
+            "attributes": {
+                "lastModifiedTime": "2018-08-02T11:20:34Z",
+                "createTime": "2017-01-27T15:40:42Z",
+                "name": "dreamcatcher",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dreamcatcher"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.dynamo",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T09:58:02Z",
+                "createTime": "2016-11-21T07:12:48Z",
+                "name": "dynamo",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.dynamo"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.formbuilder",
+            "attributes": {
+                "lastModifiedTime": "2018-07-31T06:36:29Z",
+                "createTime": "2018-02-28T17:20:53Z",
+                "name": "formbuilder",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.formbuilder"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.fusion360",
+            "attributes": {
+                "lastModifiedTime": "2018-08-02T11:09:47Z",
+                "createTime": "2016-06-10T01:40:12Z",
+                "name": "fusion360",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.fusion360"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.infraworks",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T10:27:48Z",
+                "createTime": "2017-07-28T18:21:58Z",
+                "name": "infraworks",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.infraworks"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.inventor",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T10:26:39Z",
+                "createTime": "2016-08-10T13:38:04Z",
+                "name": "inventor",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.inventor"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.machinetools",
+            "attributes": {
+                "lastModifiedTime": "2018-11-01T14:49:07Z",
+                "createTime": "2018-02-05T18:58:05Z",
+                "name": "machinetools",
+                "count": {
+                    "entities": 12,
+                    "namespaces": 1
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.machinetools"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.mds",
+            "attributes": {
+                "lastModifiedTime": "2018-07-31T06:42:28Z",
+                "createTime": "2017-03-31T02:21:36Z",
+                "name": "mds",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.mds"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.netfabb",
+            "attributes": {
+                "lastModifiedTime": "2018-08-02T11:11:20Z",
+                "createTime": "2017-09-21T03:52:54Z",
+                "name": "netfabb",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.netfabb"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.postprocessor",
+            "attributes": {
+                "lastModifiedTime": "2018-11-19T08:23:15Z",
+                "createTime": "2018-02-01T23:21:58Z",
+                "name": "postprocessor",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.postprocessor"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.recap",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T10:25:36Z",
+                "createTime": "2017-01-19T22:10:56Z",
+                "name": "recap",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.recap"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.rendering",
+            "attributes": {
+                "lastModifiedTime": "2018-08-02T11:17:05Z",
+                "createTime": "2017-05-17T16:41:32Z",
+                "name": "rendering",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.rendering"
+            }
+        },
+        {
+            "type": "namespaces",
+            "id": "autodesk.runscope",
+            "attributes": {
+                "lastModifiedTime": "2018-07-31T06:38:10Z",
+                "createTime": "2017-04-06T12:31:12Z",
+                "name": "runscope",
+                "count": {
+                    "entities": 12
+                }
+            },
+            "relationships": {
+                "namespaces": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/relationships/namespaces",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/namespaces"
+                    }
+                },
+                "entities": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/relationships/entities",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/entities"
+                    }
+                },
+                "companies": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/relationships/companies",
+                        "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope/companies"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.runscope"
             }
         }
+    ],
+    "included": [],
+    "meta": {
+        "paginationInfo": {
+            "totalResults": 41,
+            "pageNumber": 1,
+            "totalPages": 3,
+            "pageSize": 20
+        }
+    },
+    "links": {
+        "prev": "",
+        "next": "https://developer.api.autodesk.com/schema/v1/namespaces?page[number]=2&page[size]=20",
+        "first": "https://developer.api.autodesk.com/schema/v1/namespaces?page[number]=1&page[size]=20",
+        "last": "https://developer.api.autodesk.com/schema/v1/namespaces?page[number]=3&page[size]=20"
+    }
+}
         
   getNamespace:
     description: Successful response
