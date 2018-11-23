@@ -2735,154 +2735,257 @@ responses:
         type: string
     examples:
       application/vnd.api+json: 
+       {
+    "data": [
         {
-            "data": [
-                {
-                    "type": "entities",
-                    "id": "folders:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "folders"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360/extensions"
-                            }
-                        }
-                    },
+            "type": "entities",
+            "id": "assetTemplates:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2018-11-09T00:24:17Z",
+                "createTime": "2018-11-09T00:24:17Z",
+                "name": "assetTemplates"
+            },
+            "relationships": {
+                "extensions": {
                     "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/folders:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "hubs:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "hubs"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/hubs:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "items:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "items"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/items:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "links:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "links"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/links:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "projects:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "projects"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/projects:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "refs:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T16:14:03Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "name": "refs"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/refs:A360"
-                    }
-                },
-                {
-                    "type": "entities",
-                    "id": "versions:A360",
-                    "attributes": {
-                        "lastModifiedTime": "2016-05-18T20:40:53Z",
-                        "createTime": "2016-05-18T16:14:03Z",
-                        "count": {
-                            "extensions": 1
-                        },
-                        "name": "versions"
-                    },
-                    "relationships": {
-                        "extensions": {
-                            "links": {
-                                "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/relationships/extensions",
-                                "related": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360/extensions"
-                            }
-                        }
-                    },
-                    "links": {
-                        "self": "https://developer-stg.api.autodesk.com/schema/v1/entities/versions:A360"
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/assetTemplates:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/assetTemplates:autodesk.a360/extensions"
                     }
                 }
-            ],
-            "included": []
-        }   
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/assetTemplates:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "commands:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2017-02-07T12:02:16Z",
+                "createTime": "2017-02-07T12:02:16Z",
+                "name": "commands"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/commands:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/commands:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/commands:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "contents:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2017-02-07T12:01:51Z",
+                "createTime": "2017-02-07T12:01:51Z",
+                "name": "contents"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/contents:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/contents:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/contents:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "customTypes:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2017-02-07T12:02:05Z",
+                "createTime": "2017-02-07T12:02:05Z",
+                "name": "customTypes"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/customTypes:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/customTypes:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/customTypes:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "folders:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:18Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "folders"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/folders:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/folders:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/folders:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "hubs:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-11-04T01:59:11Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "hubs",
+                "count": {
+                    "extensions": 1
+                }
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/hubs:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/hubs:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/hubs:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "items:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:18Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "items"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/items:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/items:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/items:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "links:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:18Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "links"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/links:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/links:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/links:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "projects:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:18Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "projects"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/projects:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/projects:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/projects:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "propertySets:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2018-08-01T09:55:58Z",
+                "createTime": "2018-08-01T09:55:58Z",
+                "name": "propertySets"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/propertySets:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/propertySets:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/propertySets:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "refs:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:18Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "refs"
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/refs:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/refs:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/refs:autodesk.a360"
+            }
+        },
+        {
+            "type": "entities",
+            "id": "versions:autodesk.a360",
+            "attributes": {
+                "lastModifiedTime": "2016-06-10T02:47:48Z",
+                "createTime": "2016-06-10T02:47:18Z",
+                "name": "versions",
+                "count": {
+                    "extensions": 1
+                }
+            },
+            "relationships": {
+                "extensions": {
+                    "links": {
+                        "self": "https://developer.api.autodesk.com/schema/v1/entities/versions:autodesk.a360/relationships/extensions",
+                        "related": "https://developer.api.autodesk.com/schema/v1/entities/versions:autodesk.a360/extensions"
+                    }
+                }
+            },
+            "links": {
+                "self": "https://developer.api.autodesk.com/schema/v1/entities/versions:autodesk.a360"
+            }
+        }
+    ],
+    "included": []
+}
           
   getNamespaceEntity:
     description: Successful response
