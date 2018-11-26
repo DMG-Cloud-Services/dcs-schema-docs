@@ -711,9 +711,9 @@ info:
       
       In general, access to BIM 360 Team, BIM 360 Docs, Fusion Team, and A360 Personal data requires the use of a [3-legged OAuth2 token](https://developer.autodesk.com/en/docs/oauth/v2/tutorials/get-3-legged-token).
       
-      HTTP `GET` requests to the Forge Schema services require the `data:read` scope.
+      HTTP `GET` requests to the Forge Schema services require the `data:read`,`data:search` scope.
       
-      HTTP `POST` requests to the Forge Schema require the `data:create` scope, but can also be called with the `data:write` scope.
+      HTTP `POST` requests to the Forge Schema require the `data:write`, `data:create` scope.
     
     [@tutorials/create-new-namespace]: <>
     # Create a New Namespace
