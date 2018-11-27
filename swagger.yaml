@@ -1302,7 +1302,7 @@ paths:
           description: Input schema          
           required: true        
           schema:
-            $ref: '#/definitions/json_api_input_namespace'
+            $ref: '#/definitions/json_api_input_create_namespace'
       security:
         [ { oauth2_access_code: [ 'data:create' ] }, { oauth2_implicit: [ 'data:create' ] }, { oauth2_application: [ 'data:create' ] } ]
       responses:
@@ -1340,7 +1340,7 @@ paths:
           description: Input schema          
           required: true        
           schema:
-            $ref: '#/definitions/json_api_input_namespace'
+            $ref: '#/definitions/json_api_input_update_namespace'
       security:
         [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] }, { oauth2_application: [ 'data:write' ] } ]
       responses:
@@ -1729,27 +1729,48 @@ definitions:
             properties:
               about: { $ref: '#/definitions/json_api_link' }
       
-  json_api_input_namespace:
+  json_api_input_create_namespace:
     type: object
     required: [ data ]
     properties:
-      data: { $ref: '#/definitions/json_api_input_namespace_data' }
+      data: { $ref: '#/definitions/json_api_input_create_namespace_data' }
       
-  json_api_input_namespace_data:
+  json_api_input_create_namespace_data:
     type: object
     required: [ type, attributes ]
     description: 'json data'
     properties:
       type: { type: string, description: 'resource type', example: 'namespaces' }
-      attributes: { $ref: '#/definitions/json_api_input_namespace_data_attributes' }  
+      attributes: { $ref: '#/definitions/json_api_input_create_namespace_data_attributes' }  
 
-  json_api_input_namespace_data_attributes:
+  json_api_input_create_namespace_data_attributes:
     type: object
     required: [ name ]
     properties:
       name: { type: string, description: 'resource type', example: 'autodesk.bim360' }
       roles: { type: object, description: 'app key role', example: '{ appkey1 : read, appkey2 : write }'}
+
+  json_api_input_update_namespace:
+    type: object
+    required: [ data ]
+    properties:
+      data: { $ref: '#/definitions/json_api_input_update_namespace_data' }
       
+  json_api_input_update_namespace_data:
+    type: object
+    required: [ type, attributes ]
+    description: 'json data'
+    properties:
+      type: { type: string, description: 'resource type', example: 'namespaces' }
+      attributes: { $ref: '#/definitions/json_api_input_update_namespace_data_attributes' }  
+
+  json_api_input_update_namespace_data_attributes:
+    type: object
+    properties:
+      name: { type: string, description: 'resource type', example: 'autodesk.bim360' }
+      roles: { type: object, description: 'app key role', example: '{ appkey1 : read, appkey2 : write }'}
+      
+
   json_api_input_schema_document:
     type: object
     required: [ data ]
