@@ -1402,8 +1402,8 @@ paths:
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
-        '200': { $ref: '#/responses/getExtensionsForEntity' }         
-      
+        '200': { $ref: '#/responses/getExtensionsForEntity' } 
+
   '/schema/v1/extensions/{extensionTypeId}':
     x-summary: Extension Details
     x-description: Retrieve Extension details
@@ -1416,7 +1416,19 @@ paths:
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
-        '200': { $ref: '#/responses/getExtensionDetails' }   
+        '200': { $ref: '#/responses/getExtensionDetails' }  
+    delete:
+      description: Delete extension. Extension can be deleted only if it has no published version.
+      operationId: deleteExtension
+      parameters:
+        - $ref: '#/parameters/extensionTypeId'
+      responses:
+        '204':
+          description: "No content"
+        '400': { $ref: '#/responses/delete_extension_error' }
+      security:
+        [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] },{ oauth2_application: [ 'data:write' ] } ]
+
         
   '/schema/v1/extensions/{extensionTypeId}/versions':
     x-summary: Extension type Schema
@@ -1528,7 +1540,7 @@ parameters:
     in: path
     description: the entity within the namespace
     required: true
-    type: string    
+    type: string
   publish:
     name: publish
     in: query
@@ -3263,7 +3275,26 @@ responses:
             },
             "included": []
         }      
-        
+  
+  delete_extension_error:
+    description: Delete Extension error
+    schema:
+      $ref: '#/definitions/json_api_error'
+    examples:
+      application/json:
+        {
+            "errors": [
+                {
+                    "id": "ebbe21a0-cecc-4582-810b-d0215fe5f25f",
+                    "status": "400",
+                    "code": "1008",
+                    "detail": "Schema cannot be deleted when there is a published version available",
+                    "meta": {
+                    }
+                }
+            ]
+        }
+   
   getVersionedSchema:
     description: Successful response
     schema:
