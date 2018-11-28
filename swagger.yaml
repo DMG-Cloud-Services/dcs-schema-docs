@@ -1767,10 +1767,32 @@ definitions:
   json_api_input_update_namespace_data_attributes:
     type: object
     properties:
-      name: { type: string, description: 'resource type', example: 'autodesk.bim360' }
-      roles: { type: object, description: 'app key role', example: '{ appkey1 : read, appkey2 : write }'}
-      
-
+      id: { type: string, description: 'resource type', example: 'autodesk.bim360' }
+      permissions:
+        type: array
+        items:
+          type: object
+          required: [role, subjects, deletedSubjects]
+          properties:
+            role:
+              { type: string, enum: [ 'NAMESPACE_ADMIN', 'SCHEMA_AUTHOR' ] }
+            subjects:
+              type: object
+              required: [o2Users]
+              properties:
+                o2Users:
+                  type: array
+                  items:
+                    type: string
+            deletedSubjects:
+              type: object
+              required: [o2Users]
+              properties:
+                o2Users:
+                  type: array
+                  items:
+                    type: string
+    
   json_api_input_schema_document:
     type: object
     required: [ data ]
