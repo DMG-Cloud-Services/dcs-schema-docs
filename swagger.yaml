@@ -772,7 +772,7 @@ info:
     ## Example
 
     ```SHELL
-    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d "https://developer.api.autodesk.com/schema/v1/namespaces/namespace/entities"
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId/entities"
     ```
     
     The resource provides the following response:
