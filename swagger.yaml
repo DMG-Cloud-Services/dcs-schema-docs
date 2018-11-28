@@ -722,17 +722,27 @@ info:
       
       The Namespace API exposes a `POST namespaces` endpoint that allows you to create new namespace for your application.
       
-      When you create a namespace, all pre-defined entities are automatically added in that namespace.
+      When you create a namespace, all pre-defined entities are automatically added in that namespace. Namespace name must be unique.
     
     ## Example
     
     ```SHELL
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
-      "data": {
+        "data": {
+          "relationships": {
+              "companies": {
+                  "data": [
+                            {
+                            "type": "companies",
+                            "id": "autodesk"
+                            }
+                          ]
+                  }
+    },
         "type": "namespaces",
         "attributes": {
-          "name": "Namespace Name"
+          "name": "test"
         }
       }
     }’ "https://developer.api.autodesk.com/schema/v1/namespaces"
