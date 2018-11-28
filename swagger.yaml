@@ -1761,7 +1761,7 @@ definitions:
     required: [ type, attributes ]
     description: 'json data'
     properties:
-      type: { type: string,enum: [ 'namespace'], description: 'resource type', example: 'namespaces' }
+      type: { type: string, description: 'resource type', example: 'namespaces' }
       attributes: { $ref: '#/definitions/json_api_input_update_namespace_data_attributes' }  
 
   json_api_input_update_namespace_data_attributes:
