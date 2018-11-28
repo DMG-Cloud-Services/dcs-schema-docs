@@ -735,7 +735,7 @@ info:
           "name": "Namespace Name"
         }
       }
-    }’ "https://developer.api.autodesk.com/content/v1/namespaces"
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces"
     ```
     
     The resource provides the following response:
