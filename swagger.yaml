@@ -148,7 +148,19 @@ info:
       `{Entity Name}:{Namespace Name}:{Extension Name}`
       
       For example, **contents:test.sandbox:Material**
-      
+    [@overview/schema-types]: <> 
+    # Schema Roles
+    Forge Schema has two user roles `NAMESPACE_ADMIN` and `SCHEMA_AUTHOR`:
+        ##Library Roles
+    | Functions                           | NAMESPACE_ADMIN | SCHEMA_AUTHOR | Details                                                               |
+    |-------------------------------------|-----------------|---------------|-----------------------------------------------------------------------|
+    | Create sub namespace                | Yes             | No            | NAMESPACE_ADMIN can create the sub namespace under namespace          |
+    | Update permissions on namespace     | Yes             | No            | NAMESPACE_ADMIN can add or remove users                               |
+    | Create extensions                   | Yes             | Yes           |                                                                       |
+    | Delete extension                    | Yes             | Yes           |                                                                       |
+    | Edit and publish extension versions | Yes             | Yes           |                                                                       |
+    | Get permission details              | Yes             | No            | NAMESPACE_ADMIN can get the permission object on GET namespace/id API |
+  
     [@overview/schema-types]: <> 
     # Schema Types
     
