@@ -686,6 +686,10 @@ info:
     
       This tutorial explains how to create a namespace for your Autodesk product.
     
+    ## [Edit namespace permissions](/en/docs/schema/v1/tutorials/create-new-namespace)
+    
+      This tutorial explains how to edit namespace permissions.
+    
     ## [View Entities](/en/docs/schema/v1/tutorials/view-entities)
     
       This tutorial explains how to view the entities in the namespace. When you create a namespace, the predefined entities are automatically created in the namespace.
@@ -797,7 +801,94 @@ info:
         self: 'https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360'
     included: []
     ```
+    [@tutorials/view-entities]: <>
+    # Edit namespace permissions
     
+    This topic explains how to edit namespace permssions. Forge schema service supports two roles `NAMESPACE_ADMIN` and `SCHEMA_AUTHOR`  
+    
+    To edit the permissions on namespace you should be `NAMESPACE_ADMIN`. You can only edit the permssions of parent namespace. Permissions added on parent are applied to sub namespaces. 
+    
+    ## Example
+    
+    Add user as `NAMESPACE_ADMIN`
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+      		"type": "namespaces",
+      		"attributes": {
+      			"id": "{namespaceId}",
+      			"permissions": [{
+      				"role": "NAMESPACE_ADMIN",
+      				"subjects": {
+      					"o2Users": ["oxygen_id_1","oxygen_id_2"]
+      				}
+      			}]
+      		}
+      	}
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId"
+    ``` 
+
+    Add user as `SCHEMA_AUTHOR`
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+      		"type": "namespaces",
+      		"attributes": {
+      			"id": "{namespaceId}",
+      			"permissions": [{
+      				"role": "SCHEMA_AUTHOR",
+      				"subjects": {
+      					"o2Users": ["oxygen_id_1","oxygen_id_2"]
+      				}
+      			}]
+      		}
+      	}
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId"
+    ```     
+    Remove user from `NAMESPACE_ADMIN`
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+      		"type": "namespaces",
+      		"attributes": {
+      			"id": "{namespaceId}",
+      			"permissions": [{
+      				"role": "NAMESPACE_ADMIN",
+      				"deletedSubjects": {
+      					"o2Users": ["oxygen_id_1"]
+      				}
+      			}]
+      		}
+      	}
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId"
+    
+    ``` 
+    Remove user from `SCHEMA_AUTHOR`
+    
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data": {
+      		"type": "namespaces",
+      		"attributes": {
+      			"id": "{namespaceId}",
+      			"permissions": [{
+      				"role": "SCHEMA_AUTHOR",
+      				"deletedSubjects": {
+      					"o2Users": ["oxygen_id_1"]
+      				}
+      			}]
+      		}
+      	}
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId"
+    
+    ```     
     [@tutorials/view-entities]: <>
     # View Entities
     
@@ -1818,7 +1909,7 @@ definitions:
         type: array
         items:
           type: object
-          required: [role, subjects, deletedSubjects]
+          required: [role]
           properties:
             role:
               { type: string, enum: [ 'NAMESPACE_ADMIN', 'SCHEMA_AUTHOR' ] }
