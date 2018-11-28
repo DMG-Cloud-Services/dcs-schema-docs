@@ -1555,6 +1555,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getExtensionDetails' }
         '400': { $ref: '#/responses/json_api_error' }
+        '403': { $ref: '#/responses/json_api_error' }
     delete:
       description: Delete extension. Extension can be deleted only if it has no published version.
       operationId: deleteExtension
