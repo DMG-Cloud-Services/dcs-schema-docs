@@ -903,7 +903,8 @@ info:
     ## Example
 
     ```SHELL
-    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d "https://developer.api.autodesk.com/schema/v1/namespaces/namespaceId/entities"
+    curl -X GET \
+    https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/entities \ -H 'Authorization: Bearer <token>'
     ```
     
     The resource provides the following response:
