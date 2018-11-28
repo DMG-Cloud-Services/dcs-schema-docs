@@ -2749,31 +2749,44 @@ responses:
     examples:
       application/vnd.api+json: 
         {
-            "data": {
-                "type": "namespaces",
-                "id": "A360",
-                "attributes": {
-                    "lastModifiedTime": "2016-05-18T16:14:03Z",
-                    "createTime": "2016-05-18T16:14:03Z",
-                    "count": {
-                        "entities": 7
-                    },
-                    "name": "A360"
-                },
-                "relationships": {
-                    "entities": {
-                        "links": {
-                            "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/relationships/entities",
-                            "related": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360/entities"
-                        }
-                    }
-                },
+    "data": {
+        "type": "namespaces",
+        "id": "autodesk.a360",
+        "attributes": {
+            "lastModifiedTime": "2018-08-01T09:56:54Z",
+            "createTime": "2016-06-10T02:47:17Z",
+            "name": "a360",
+            "count": {
+                "entities": 12
+            }
+        },
+        "relationships": {
+            "companies": {
                 "links": {
-                    "self": "https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360"
+                    "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/companies",
+                    "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/companies"
                 }
             },
-            "included": []
+            "entities": {
+                "links": {
+                    "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/entities",
+                    "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/entities"
+                }
+            },
+            "namespaces": {
+                "links": {
+                    "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/relationships/namespaces",
+                    "related": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360/namespaces"
+                }
+            }
+        },
+        "links": {
+            "self": "https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.a360"
         }
+    },
+    "included": [],
+    "meta": {}
+}
         
   getNamespaceEntities:
     description: Successful response
