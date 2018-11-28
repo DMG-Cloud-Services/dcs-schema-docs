@@ -725,7 +725,7 @@ info:
       When you create a namespace, all pre-defined entities are automatically added in that namespace. Namespace name must be unique.
     
     ## Example
-    
+    This example shows the request to create new namespace under company.
     ```SHELL
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
@@ -745,7 +745,27 @@ info:
       }}
     }’ "https://developer.api.autodesk.com/schema/v1/namespaces"
     ```
+    This example shows the request to create new namespace under namespace.
     
+    ```SHELL
+    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    '{
+      "data":{
+        "relationships":{
+          "companies":{
+            "data":[
+              {
+                "type": "namespaces",
+                "id": "autodesk"
+              }
+              ]
+            }},
+      "type": "namespaces",
+      "attributes": {
+      "name": "test"
+      }}
+    }’ "https://developer.api.autodesk.com/schema/v1/namespaces"
+    ```    
     The resource provides the following response:
     
     ```JSON
