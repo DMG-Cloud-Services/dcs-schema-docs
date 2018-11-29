@@ -739,9 +739,12 @@ info:
       The Namespace API exposes a `POST namespaces` endpoint that allows you to create new namespace for your application.
       
       When you create a namespace, all pre-defined entities are automatically added in that namespace. Namespace name must be unique.
+      
     
     ## Example
     This example shows the request to create new namespace under company.
+      >**Note**: Only admin user can create the namespace under company.
+
     ```SHELL
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
