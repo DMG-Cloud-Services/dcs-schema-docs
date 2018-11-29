@@ -1640,6 +1640,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getVersionedSchema' }
+        '400': { $ref: '#/responses/json_api_error' }
   '/schema/v1/schemas':
     x-summary: Schema Search
     x-description: Search versioned extension type schema
