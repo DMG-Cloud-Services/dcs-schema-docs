@@ -1385,6 +1385,7 @@ info:
   
 # the domain of the service
 host: developer-stg.api.autodesk.com
+basePath: /schema/v1
 # array of all schemes that your API supports
 schemes:
   - https
@@ -1424,7 +1425,7 @@ securityDefinitions:
     x-authentication_context: application context required
 
 paths:
-  '/schema/v1/namespaces':
+  '/namespaces':
     x-summary: Namespaces
     x-description: Namespaces for the schema
     post:
@@ -1455,7 +1456,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespaces' }
         
-  '/schema/v1/namespaces/{namespace}':
+  '/namespaces/{namespace}':
     x-summary: Namespace Details
     x-description: Retrieve a namespace
     get:
@@ -1483,7 +1484,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespace' }
         
-  '/schema/v1/namespaces/{namespace}/entities':
+  '/namespaces/{namespace}/entities':
     x-summary: Entity types
     x-description: Retrieve all the Entities within the namespace
     get:
@@ -1497,7 +1498,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespaceEntities' }
         
-  '/schema/v1/entities/{entityId}':
+  '/entities/{entityId}':
     x-summary: Entity Details
     x-description: Retrieve an entity within the namespace
     get:
@@ -1511,7 +1512,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespaceEntity' }      
       
-  '/schema/v1/entities/{entityId}/extensions':
+  '/entities/{entityId}/extensions':
     x-summary: Extension Types
     x-description: Create extension type within an entity
     post:
@@ -1544,7 +1545,7 @@ paths:
         '200': { $ref: '#/responses/getExtensionsForEntity' }
         '403': { $ref: '#/responses/json_api_error' }
 
-  '/schema/v1/extensions/{extensionTypeId}':
+  '/extensions/{extensionTypeId}':
     x-summary: Extension Details
     x-description: Retrieve Extension details
     get:
@@ -1572,7 +1573,7 @@ paths:
         [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] },{ oauth2_application: [ 'data:write' ] } ]
 
         
-  '/schema/v1/extensions/{extensionTypeId}/versions':
+  '/extensions/{extensionTypeId}/versions':
     x-summary: Extension type Schema
     x-description: Create a new schema for an Extension type.
     post:
@@ -1603,7 +1604,7 @@ paths:
       responses:
         '200': {$ref: '#/responses/getExtensionSchemaVersions'}      
         
-  '/schema/v1/versions/{extensionTypeId}-tip':
+  '/versions/{extensionTypeId}-tip':
     x-summary: Published Schema
     x-description: Retrieve published Schema
     get:
@@ -1615,7 +1616,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getPublishedSchema' } 
-  '/schema/v1/versions/{extensionTypeId}-draft':
+  '/versions/{extensionTypeId}-draft':
     x-summary: Draft Schema
     x-description: Retrieve draft Schema
     get:
@@ -1627,7 +1628,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getDraftSchema' } 
-  '/schema/v1/versions/{extensionTypeId}-{version}':
+  '/versions/{extensionTypeId}-{version}':
     x-summary: Versioned Schema
     x-description: Retrieve versioned extension type schema
     get:
@@ -1641,7 +1642,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getVersionedSchema' }
         '400': { $ref: '#/responses/json_api_error' }
-  '/schema/v1/schemas':
+  '/schemas':
     x-summary: Schema Search
     x-description: Search versioned extension type schema
     get:
