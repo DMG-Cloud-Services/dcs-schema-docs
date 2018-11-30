@@ -1483,6 +1483,7 @@ paths:
         [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] }, { oauth2_application: [ 'data:write' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespace' }
+        '400': { $ref: '#/responses/json_api_error' }
         
   '/namespaces/{namespace}/entities':
     x-summary: Entity types
