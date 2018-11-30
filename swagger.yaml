@@ -1469,6 +1469,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespace' }
+        '400': { $ref: '#/responses/json_api_error' }
     patch:
       description: Update namespace.
       parameters:
