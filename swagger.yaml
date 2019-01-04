@@ -1318,7 +1318,7 @@ info:
       | **page[number]**                    | The page number of the schema that you want to retrieve.
       | **page[size]**                      | Total number of pages that you want to view for the schema.
 
-    **JSON Property Path** 
+    **JSON Property Path:** 
     For schema defined above valid filters for propertyPaths can be:
     filters[schema][constants.id]=text, filters[schema][constants.typeid]=String, filters[schema][annotation.description]=given description
     
