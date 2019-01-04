@@ -1266,6 +1266,130 @@ info:
       | **page[number]**                    | The page number of the schema that you want to retrieve.
       | **page[size]**                      | Total number of pages that you want to view for the schema.
     
+    ## Search propertySets Schema
+    
+      This feature allows user to search the schema using the properties defined inside the schema.
+    
+      **Note**: This feature is only supported for propertySets schemas.
+  
+    ## Example
+    
+    ```JSON
+      {
+        "annotation": {
+          "description": "A unit symbol consisting of a prefix or suffix appended to a single numerical value."
+        },
+        "typeid": "autodesk.unit:symbol.prefixOrSuffix-1.0.0",
+        "inherits": [
+          "autodesk.unit:symbol-1.0.0"
+        ],
+        "constants": [
+          {
+            "id": "text",
+            "typeid": "String",
+            "annotation": {
+              "description": "Text to annotate the value."
+            }
+          },
+          {
+            "id": "placement",
+            "typeid": "autodesk.unit:symbol.placement-1.0.0",
+            "annotation": {
+              "description": "Placement of the annotation text."
+            }
+          },
+          {
+            "id": "space",
+            "typeid": "Bool",
+            "annotation": {
+              "description": "Specifies whether the annotation should be separated from the value by a space."
+            }
+          }
+        ]
+      }
+    ```
+      Above schema can be searched using filters descibed below 
+      
+      | Filters                             | Description
+      | ------------------------------------| -----------------------------------------------------------------------------------
+      | **[schema][namespace]**             | Search all schemas in the specified namespace.
+      | **[schema][entity]**                | We only support this feature on propertySets schema. Value for this will be `propertySets` 
+      | **[schema][JSON Property Path]**  | JSON Property Path is valid path to properties which you need to search. Please refer below description for more details
+      | **page[number]**                    | The page number of the schema that you want to retrieve.
+      | **page[size]**                      | Total number of pages that you want to view for the schema.
+
+    JSON Property Path: For schema defined above valid filters for propertyPaths can be:
+    filters[schema][constants.id]=text, filters[schema][constants.typeid]=String, filters[schema][annotation.description]=given description
+    
+    **Request**  
+      ```Shell
+      GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][entity]=”propertySets”&filters[schema][constants.typeid]="String"
+      ```
+    **Response**  
+    ```JSON
+          {
+        "data": [
+            {
+                "type": "schemas",
+                "id": "propertySets:autodesk.unit:unit-1.0.0",
+                "attributes": {
+                    "extension": "unit",
+                    "extensionStatus": "published",
+                    "dateCreated": "2018-08-29T16:12:38Z",
+                    "namespace": "autodesk.unit",
+                    "version": "1.0.0"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer.api.autodesk.com/schema/v1/schemas/propertySets:autodesk.unit:unit-1.0.0"
+                }
+            },
+            {
+                "type": "schemas",
+                "id": "propertySets:autodesk.unit:quantity-1.0.0",
+                "attributes": {
+                    "extension": "quantity",
+                    "extensionStatus": "published",
+                    "dateCreated": "2018-08-29T16:13:00Z",
+                    "namespace": "autodesk.unit",
+                    "version": "1.0.0"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer.api.autodesk.com/schema/v1/schemas/propertySets:autodesk.unit:quantity-1.0.0"
+                }
+            },
+            {
+                "type": "schemas",
+                "id": "propertySets:autodesk.unit:symbol.prefixOrSuffix-1.0.0",
+                "attributes": {
+                    "extension": "symbol.prefixOrSuffix",
+                    "extensionStatus": "published",
+                    "dateCreated": "2018-08-29T16:13:29Z",
+                    "namespace": "autodesk.unit",
+                    "version": "1.0.0"
+                },
+                "relationships": {},
+                "links": {
+                    "self": "https://developer.api.autodesk.com/schema/v1/schemas/propertySets:autodesk.unit:symbol.prefixOrSuffix-1.0.0"
+                }
+            }
+        ],
+        "included": [],
+        "meta": {
+            "paginationInfo": {
+                "totalResults": 3,
+                "pageNumber": 1,
+                "totalPages": 1,
+                "pageSize": 20
+            }
+        },
+        "links": {
+            "first": "https://developer.api.autodesk.com/schema/v1/schemas?filters[schema][constants.typeid]=String&filters[schema][entity]=propertySets&page[number]=1&page[size]=20",
+            "last": "https://developer.api.autodesk.com/schema/v1/schemas?filters[schema][constants.typeid]=String&filters[schema][entity]=propertySets&page[number]=1&page[size]=20"
+        }
+    }
+    ```      
     
     [@tutorials/implement-or-inherit-schema]: <>
     # Implement or Inherit a Schema 
@@ -1469,7 +1593,6 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespace' }
-        '400': { $ref: '#/responses/json_api_error' }
     patch:
       description: Update namespace.
       parameters:
