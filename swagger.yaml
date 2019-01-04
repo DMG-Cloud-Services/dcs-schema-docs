@@ -1328,7 +1328,7 @@ info:
       ```
     **Response**  
     ```JSON
-          {
+      {
         "data": [
             {
                 "type": "schemas",
@@ -1389,7 +1389,7 @@ info:
             "first": "https://developer.api.autodesk.com/schema/v1/schemas?filters[schema][constants.typeid]=String&filters[schema][entity]=propertySets&page[number]=1&page[size]=20",
             "last": "https://developer.api.autodesk.com/schema/v1/schemas?filters[schema][constants.typeid]=String&filters[schema][entity]=propertySets&page[number]=1&page[size]=20"
         }
-    }
+      }
     ```      
     
     [@tutorials/implement-or-inherit-schema]: <>
