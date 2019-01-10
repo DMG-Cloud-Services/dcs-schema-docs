@@ -710,7 +710,7 @@ info:
     
       This tutorial explains how you can view different versions and different types of versions of your schema. The version types can be draft versions and published versions.
     
-    ## [Search a Schema](/en/docs/schema/v1/tutorials/search-schema)
+    ## [Search Schema](/en/docs/schema/v1/tutorials/search-schema)
       
       This tutorial explains how you can search a schema. The API request provides different filter conditions that you can use to quickly search the required schema.
     
