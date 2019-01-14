@@ -718,6 +718,10 @@ info:
       
       This tutorial explains how you can implement a schema into another schema and create a parent-child relationship between schemas.
     
+    ## [Mixing propertySets schema with content schema](/en/docs/schema/v1/tutorials/mixing-propertySets-schema-with-content-schema)
+      
+      This tutorial explains how you can inject propertySets schema inside content schema.
+    
     [@tutorials/before-you-begin]: <>
     # Before you begin
       
@@ -1479,6 +1483,196 @@ info:
       }
     }
     ```
+    [@tutorials/mixing-propertySets-schema-with-content-schema]: <>
+    # Mixing propertySets schema with content schema 
+    
+      Forge schema service now allows users to mix the propertySets schema with content schema. To use this feature user will specify preexisting propertySets schema type id inside content schema and when user tries to get content schema (using GET /versions/id API), Forge schema service (FSS) will inject the propertySets schema inside content schema and return it to user.
+      
+      **Note**: The **override** and **suppress** attributes are only available for the content entity.
+    
+    ## Example
+      
+      If user has created following content schema. Note that user has added `PropertySetsCustomObject` object inside extension.data.properties. In this object user has specified `propertySetsTypeId`=`propertySets:autodesk.unit:unit-1.0.0
+    
+    ```JSON
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Schema description goes here",
+      "type": "object",
+      "required": [
+        "type",
+        "attributes"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "contents"
+          ],
+          "description": "SCHEMA-ONLY Base entity type referred to by contents"
+        },
+        "attributes": {
+          "type": "object",
+          "required": [
+            "extension"
+          ],
+          "properties": {
+            "extension": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "contents:test.testmodal:testContent3"
+                  ],
+                  "description": "Extension for content"
+                },
+                "version": {
+                  "type": "string",
+                  "description": "1.0.0"
+                },
+                "namespace": {
+                  "type": "string",
+                  "enum": [
+                    "test.testmodal"
+                  ],
+                  "description": "SCHEMA-ONLY Namespace to which this extensionType belongs"
+                },
+                "data": {
+                  "type": "object",
+                  "description": "custom metadata type.",
+                  "properties": {
+                    "PropertySetsCustomObject": {
+                      "type": "object",
+                      "description": "test",
+                      "propertySetsTypeId": "propertySets:autodesk.unit:unit-1.0.0"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    ```
+    When user invokes GET /versions/id API to fetch above content schema, Forge schema service (FSS) will return following response:
+    
+    ```
+    {
+        "data": {
+            "type": "versions",
+            "id": "contents:test.testmodal:testContent3-1.0.0",
+            "attributes": {
+                "schema": {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "title": "",
+                    "description": "Schema description goes here",
+                    "type": "object",
+                    "required": [
+                        "type",
+                        "attributes"
+                    ],
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "contents"
+                            ],
+                            "description": "SCHEMA-ONLY Base entity type referred to by contents"
+                        },
+                        "attributes": {
+                            "type": "object",
+                            "required": [
+                                "extension"
+                            ],
+                            "properties": {
+                                "extension": {
+                                    "type": "object",
+                                    "required": [
+                                        "type"
+                                    ],
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "contents:test.testmodal:testContent3"
+                                            ],
+                                            "description": "Extension for content"
+                                        },
+                                        "version": {
+                                            "type": "string",
+                                            "description": "1.0.0",
+                                            "title": ""
+                                        },
+                                        "namespace": {
+                                            "type": "string",
+                                            "enum": [
+                                                "test.testmodal"
+                                            ],
+                                            "description": "SCHEMA-ONLY Namespace to which this extensionType belongs"
+                                        },
+                                        "implementsHierarchy": {
+                                            "type": "string",
+                                            "enum": [
+                                                "contents:test.testmodal:testContent3-1.0.0"
+                                            ],
+                                            "description": "Schema implementation hierarchy metadata",
+                                            "title": "Schema implementation hierarchy metadata"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "description": "custom metadata type.",
+                                            "properties": {
+                                                "PropertySetsCustomObject": {
+                                                    "typeid": "autodesk.unit:unit-1.0.0",
+                                                    "annotation": {
+                                                        "description": "A definite magnitude used as a standard of measurement.",
+                                                        "doc": "http://docs.adskunits.apiary.io/#introduction/definitions/measurement-units"
+                                                    },
+                                                    "constants": [
+                                                        {
+                                                            "id": "name",
+                                                            "typeid": "String"
+                                                        },
+                                                        {
+                                                            "id": "unitSystem",
+                                                            "typeid": "autodesk.unit:system-1.0.0"
+                                                        }
+                                                    ],
+                                                    "propertySetsTypeId": "propertySets:autodesk.unit:unit-1.0.0"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "extensionStatus": "published",
+                "lastModifiedTime": "2019-01-14T22:35:30Z",
+                "createTime": "2019-01-14T22:35:30Z",
+                "extensionId": "contents:test.testmodal:testContent3",
+                "version": "1.0.0"
+            },
+            "relationships": {},
+            "links": {
+                "self": "https://developer-stg.api.autodesk.com/schema-alpha/v1/versions/contents:test.testmodal:testContent3-1.0.0"
+            }
+        },
+        "included": []
+    }
+    
+    ```
+    In above response please note `PropertySetsCustomObject` attribute under `data.attributes.schema.properties.attributes.properties.extension.properties.data.properties`. FSS has injected the schema associated with `propertySets:autodesk.unit:unit-1.0.0`.
+
+      >**Note**: To inject propertySets schema inside content schema user must specify name of the property as `propertySetsTypeId`. PropertySets type id specified under `propertySetsTypeId` must be valid propertySets schema. FSS will throw error when user specifies invalid typeid. This feature is now available on `dev` environment. 
+
+
     [%http]: <>
     # HTTP Specification
     
