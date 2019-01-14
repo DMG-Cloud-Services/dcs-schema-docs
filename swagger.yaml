@@ -1488,11 +1488,9 @@ info:
     
       Forge schema service now allows users to mix the propertySets schema with content schema. To use this feature user will specify preexisting propertySets schema type id inside content schema and when user tries to get content schema (using GET /versions/id API), Forge schema service (FSS) will inject the propertySets schema inside content schema and return it to user.
       
-      **Note**: The **override** and **suppress** attributes are only available for the content entity.
-    
     ## Example
       
-      If user has created following content schema. Note that user has added `PropertySetsCustomObject` object inside extension.data.properties. In this object user has specified `propertySetsTypeId`=`propertySets:autodesk.unit:unit-1.0.0
+      If user has created following content schema. Note that user has added `PropertySetsCustomObject` object inside extension.data.properties. In this object user has specified `propertySetsTypeId`=`propertySets:autodesk.unit:unit-1.0.0`
     
     ```JSON
     {
@@ -1559,7 +1557,7 @@ info:
       }
     }
     ```
-    When user invokes GET /versions/id API to fetch above content schema, Forge schema service (FSS) will return following response:
+    When user invokes `GET` `/versions/id` API to fetch above content schema, Forge schema service (FSS) will return following response:
     
     ```
     {
