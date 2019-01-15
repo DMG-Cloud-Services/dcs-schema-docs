@@ -1668,7 +1668,7 @@ info:
     ```
     In above response please note `PropertySetsCustomObject` attribute under `data.attributes.schema.properties.attributes.properties.extension.properties.data.properties`. FSS has injected the schema associated with `propertySets:autodesk.unit:unit-1.0.0`.
 
-      >**Note**: To inject propertySets schema inside content schema user must specify name of the property as `propertySetsTypeId`. PropertySets type id specified under `propertySetsTypeId` must be valid propertySets schema. FSS will throw error when user specifies invalid typeid. This feature is now available on `dev` and `staging` environment. 
+      >**Note**: To inject propertySets schema inside content schema user must specify name of the property as `propertySetsTypeId`. PropertySets type id specified under `propertySetsTypeId` must be valid propertySets schema. FSS will throw error when user specifies invalid typeid.
 
 
     [%http]: <>
