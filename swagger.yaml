@@ -1762,6 +1762,7 @@ paths:
         '201': {$ref: '#/responses/createNamespace'}
         '400': { $ref: '#/responses/json_api_error' }
         '403': { $ref: '#/responses/json_api_error' }
+      tags: ["Namespaces"]
     get:
       operationId: getNamespaces
       description: |
@@ -1772,6 +1773,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespaces' }
+      tags: ["Namespaces"]
         
   '/namespaces/{namespace}':
     x-summary: Namespace Details
@@ -1787,6 +1789,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespace' }
         '400': { $ref: '#/responses/json_api_error' }
+      tags: ["Namespaces Details"]
     patch:
       description: Update namespace.
       parameters:
@@ -1802,6 +1805,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespace' }
         '400': { $ref: '#/responses/json_api_error' }
+      tags: ["Namespaces Details"]
         
   '/namespaces/{namespace}/entities':
     x-summary: Entity types
@@ -1816,6 +1820,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespaceEntities' }
+      tags: ["Entity Types"]
         
   '/entities/{entityId}':
     x-summary: Entity Details
@@ -1829,7 +1834,8 @@ paths:
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
-        '200': { $ref: '#/responses/getNamespaceEntity' }      
+        '200': { $ref: '#/responses/getNamespaceEntity' }   
+      tags: ["Entity Details"]
       
   '/entities/{entityId}/extensions':
     x-summary: Extension Types
@@ -1852,6 +1858,7 @@ paths:
         '201': {$ref: '#/responses/createExtensionType'}
         '400': { $ref: '#/responses/json_api_error' }
         '403': { $ref: '#/responses/json_api_error' }
+      tags: ["Extension Types"]
     get:
       operationId: getExtensions
       description: |
@@ -1863,6 +1870,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getExtensionsForEntity' }
         '403': { $ref: '#/responses/json_api_error' }
+      tags: ["Extension Types"]
 
   '/extensions/{extensionTypeId}':
     x-summary: Extension Details
