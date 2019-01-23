@@ -1887,6 +1887,7 @@ paths:
         '200': { $ref: '#/responses/getExtensionDetails' }
         '400': { $ref: '#/responses/json_api_error' }
         '403': { $ref: '#/responses/json_api_error' }
+      tags: ["Extension Details"]
     delete:
       description: Delete extension. Extension can be deleted only if it has no published version.
       operationId: deleteExtension
@@ -1898,6 +1899,7 @@ paths:
         '400': { $ref: '#/responses/delete_extension_error' }
       security:
         [ { oauth2_access_code: [ 'data:write' ] }, { oauth2_implicit: [ 'data:write' ] },{ oauth2_application: [ 'data:write' ] } ]
+      tags: ["Extension Details"]
 
         
   '/extensions/{extensionTypeId}/versions':
@@ -1920,6 +1922,7 @@ paths:
       responses:
         '201': {$ref: '#/responses/createExtensionSchema'}
         '400': { $ref: '#/responses/json_api_error' }
+      tags: ["Extension type Schema"]
     get:
       operationId: getExtensionSchemaVersions
       description: |
@@ -1930,7 +1933,8 @@ paths:
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
-        '200': {$ref: '#/responses/getExtensionSchemaVersions'}      
+        '200': {$ref: '#/responses/getExtensionSchemaVersions'}     
+      tags: ["Extension type Schema"]
         
   '/versions/{extensionTypeId}-tip':
     x-summary: Published Schema
@@ -1944,6 +1948,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getPublishedSchema' } 
+      tags: ["Published Schema"]
   '/versions/{extensionTypeId}-draft':
     x-summary: Draft Schema
     x-description: Retrieve draft Schema
@@ -1956,6 +1961,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getDraftSchema' } 
+      tags: ["Draft Schema"]
   '/versions/{extensionTypeId}-{version}':
     x-summary: Versioned Schema
     x-description: Retrieve versioned extension type schema
@@ -1970,6 +1976,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getVersionedSchema' }
         '400': { $ref: '#/responses/json_api_error' }
+      tags: ["Versioned Schema"]
   '/schemas':
     x-summary: Schema Search
     x-description: Search versioned extension type schema
@@ -1999,6 +2006,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getSearchedVersionedSchema' }
+      tags: ["Schema Search"]
         
 parameters:
   namespace:
