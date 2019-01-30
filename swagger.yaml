@@ -1274,7 +1274,7 @@ info:
     
       This feature allows user to search the schema using the properties defined inside the schema.
     
-      **Note**: This feature is only supported for propertySets schemas.
+      **Note**: This feature is only supported for propertySets schemas. For using this feature please use token with `data:search` scope.
   
     ## Example
     
