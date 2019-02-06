@@ -148,7 +148,7 @@ info:
       `{Entity Name}:{Namespace Name}:{Extension Name}`
       
       For example, **contents:test.sandbox:Material**
-    [@overview/schema-types]: <> 
+    [@overview/schema-roles]: <> 
     # Schema Roles
     Forge Schema has two user roles `NAMESPACE_ADMIN` and `SCHEMA_AUTHOR`:
         ##Library Roles
@@ -808,7 +808,7 @@ info:
         self: 'https://developer-stg.api.autodesk.com/schema/v1/namespaces/A360'
     included: []
     ```
-    [@tutorials/view-entities]: <>
+    [@tutorials/edit-permissions]: <>
     # Edit namespace permissions
     
     This topic explains how to edit namespace permssions. Forge schema service supports two roles `NAMESPACE_ADMIN` and `SCHEMA_AUTHOR`  
