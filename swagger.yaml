@@ -528,14 +528,7 @@ info:
       }
     }
     ```
-    
-    [@overview/advantages-of-schema]: <>
-    # Advantages of Schema
-      
-      1. Creates a standard structure for base entities, like Projects, Folders, Files, and Relationships
-      
-      2. Different versions can be published that products can use without affecting with any changes in the actual schema.
-    
+
     [@overview/field-guide]: <>
     # Field Guide
       
