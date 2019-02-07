@@ -5,6 +5,9 @@ info:
   
     [@overview]: <> (title)
     
+    [@overview/introduction]: <>
+    # Introduction
+    
     In Autodesk, there are multiple product suites that focuses on various industry domains. Each of these suites use their own ways to represent project structures, metadata, and store and access the data. This is making difficult for Autodesk products to collaborate with other products and restricts them on universal data consumption.
     
     The Forge Schema API provides a way to define a template or set of rules for defining the project structure, metadata, and also store the data from various Autodesk applications in a particular structure or a format.
