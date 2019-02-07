@@ -1681,24 +1681,31 @@ info:
     
     The following are the supported endpoints and methods related to Namespaces.
     
+    .. include:: ../../_snippets/v1/reference/Namespaces.rst
+    
     ## Entities
     
     The following are the supported endpoints and methods related to Entities.
     
+    .. include:: ../../_snippets/v1/reference/Entities.rst
 
     ## Extensions
     
     The following are the supported endpoints and methods related to Extensions.
     
+    .. include:: ../../_snippets/v1/reference/Extensions.rst
 
     ## Schemas
     
     The following are the supported endpoints and methods related to Schemas.
+   
+    .. include:: ../../_snippets/v1/reference/Schemas.rst
     
-
     ## Versions
     
     The following are the supported endpoints and methods related to Versions.
+
+    .. include:: ../../_snippets/v1/reference/Versions.rst
     
 
   version: "1.0.0"
