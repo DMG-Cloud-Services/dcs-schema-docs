@@ -1760,6 +1760,7 @@ paths:
       description: |
         Creates a new namespace.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - in: body
           name: body
           description: Input schema          
@@ -1778,6 +1779,7 @@ paths:
       description: |
         Retrieve all the available namespaces
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/companyId'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1793,6 +1795,7 @@ paths:
       description: |
         Retrieve a particular namespace
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/namespace'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1803,6 +1806,7 @@ paths:
     patch:
       description: Update namespace.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/namespace'
         - in: body
           name: body
@@ -1825,6 +1829,7 @@ paths:
       description: |
         Retrieve all the Entities within the namespace
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/namespace'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1840,6 +1845,7 @@ paths:
       description: |
         Retrieve an entity within the namespace
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/entityId'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1855,6 +1861,7 @@ paths:
       description: |
         Create extension type within an entity. This API creates a folder for the extension which holds the schema versions.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/entityId'
         - in: body
           name: body
@@ -1874,6 +1881,7 @@ paths:
       description: |
         Retrieve all the extension types available within an entity
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/entityId'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1890,6 +1898,7 @@ paths:
       description: |
         Retrieve Extension details
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/extensionTypeId'
       security:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
@@ -1902,6 +1911,7 @@ paths:
       description: Delete extension. Extension can be deleted only if it has no published version.
       operationId: deleteExtension
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/extensionTypeId'
       responses:
         '204':
@@ -1920,6 +1930,7 @@ paths:
       description: |
         Creates a new schema version for an extension. The extension type of the schema can be a "draft" or "published". The schema is passed as a JSON object inside the "schema" data attribute.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/extensionTypeId'
         - in: body
           name: body
@@ -1938,6 +1949,7 @@ paths:
       description: |
         Retrieve all the available version of an extension schema.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/versionType'
       security:
@@ -1954,6 +1966,7 @@ paths:
       description: |
         Retrieves the latest published version schema of an extension type
       parameters:
+        - $ref: '#/parameters/commonHeaderOptional'
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/compile'
       responses:
@@ -1967,6 +1980,7 @@ paths:
       description: |
         Retrieves the draft version schema of an extension type
       parameters:
+        - $ref: '#/parameters/commonHeaderOptional'
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/compile'
       responses:
@@ -1980,6 +1994,7 @@ paths:
       description: |
         Retrieve versioned extension type schema
       parameters:
+        - $ref: '#/parameters/commonHeaderOptional'
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/version'
         - $ref: '#/parameters/compile'
@@ -1995,6 +2010,7 @@ paths:
       description: |
         Search for versioned schemas using filters, sorting and pagination.
       parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
         - $ref: '#/parameters/searchNamespace'
         - $ref: '#/parameters/searchEntity'
         - $ref: '#/parameters/searchExtension'
@@ -2019,6 +2035,20 @@ paths:
       tags: ["Schema Search"]
         
 parameters:
+  commonHeaderRequired:
+    name: Authorization
+    in: header
+    type: string
+    required: false
+    description: "Bearer <Token>"
+    x-example: "Bearer <Token>"
+  commonHeaderOptional:
+    name: Authorization
+    in: header
+    type: string
+    required: false
+    description: "Bearer <Token>"
+    x-example: "Bearer <Token>"
   namespace:
     name: namespace
     in: path
