@@ -2036,7 +2036,7 @@ parameters:
     name: Authorization
     in: header
     type: string
-    required: false
+    required: true
     description: "Bearer <Token>"
     x-example: "Bearer <Token>"
   commonHeaderOptional:
