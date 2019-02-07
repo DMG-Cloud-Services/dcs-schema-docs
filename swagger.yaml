@@ -75,7 +75,7 @@ info:
     Error objects provide additional information about problems encountered while performing an operation. Error objects MUST be returned as an array keyed by errors
     in the top level of a `JSON API` document.
     
-    ```JSON
+    ```
     {
       errors: [
         {
@@ -128,7 +128,7 @@ info:
       
       Once you create a namespace, the new namespace is assigned to the creator as the owner. Only the owner of the namespace can edit their namespaces. Owner can transfer the ownership of the namespace to different owner.
       
-      >**Note**: Only a super user or FSS team can create a Namespace. Also, the namespace is created on per tenant basis and you must create all required schemas inside the designated namespace.
+        >**Note**: Only a super user or FSS team can create a Namespace. Also, the namespace is created on per tenant basis and you must create all required schemas inside the designated namespace.
     
     ##<a name="entity"></a>Entity
       
@@ -151,10 +151,12 @@ info:
       `{Entity Name}:{Namespace Name}:{Extension Name}`
       
       For example, **contents:test.sandbox:Material**
+    
     [@overview/schema-roles]: <> 
+    
     # Schema Roles
     Forge Schema has two user roles `NAMESPACE_ADMIN` and `SCHEMA_AUTHOR`:
-        ##Library Roles
+    
     | Functions                           | NAMESPACE_ADMIN | SCHEMA_AUTHOR | Details                                                               |
     |-------------------------------------|-----------------|---------------|-----------------------------------------------------------------------|
     | Create sub namespace                | Yes             | No            | NAMESPACE_ADMIN can create the sub namespace under namespace          |
@@ -293,7 +295,7 @@ info:
     
     This section contains common attributes for the schema. You can add as many attributes as you need for your schema.
       
-    ```JSON
+    ```
     {
     	"$schema": "http://json-schema.org/draft-04/schema#",
     	"description": "Schema uses Json Schema format as the 'language' to specify forge-dm-schema for an extensionType.",
@@ -353,7 +355,7 @@ info:
       
     This section contains the actual extended properties that you want to use to store your data. For each property, you can define the name, type, description, and the required status.
     
-    ```JSON
+    ```
     "data": {
         "type": "object",
         "description": "custom properties for this type",
@@ -460,7 +462,7 @@ info:
     
     In this section, you define the relationship of your schema with entities. You can also link your schema to any other entity.
     
-    ```JSON
+    ```
     "relationships": {
      "extensions": {
         "links": {
@@ -481,7 +483,7 @@ info:
       
       If any consumer key has write permissions, that consumer can also read any key with read permission in the restricted section.
           
-    ```JSON
+    ```
     "restricted": {
       "type": "object",
       "description": "SCHEMA-ONLY list of properties with read or write access limited to whitelisted consumer keys",
@@ -543,11 +545,11 @@ info:
       
       A namespace provides a common representation of Autodesk products, like BIM 360, A360. It contains the following attributes:
     
-    | Attributes         | Description
-    | ------      | -----------------------------------------------------------------------------------
-    | **name**       |  The name of the namespace.
+    | Attributes           | Description
+    | ---------------------| -----------------------------------------------------------------------------------
+    | **name**             |  The name of the namespace.
     | **lastModifiedTime** |  The date and time when the namespace is modified last time.
-    | **createTime**     |  The date and time when the namespace is created.
+    | **createTime**       |  The date and time when the namespace is created.
     
     ### Relationship
     
@@ -558,7 +560,7 @@ info:
     
     ### Example Object
     
-    ```JSON
+    ```
     data:
       type: namespaces
       id: autodesk.rendering
@@ -599,7 +601,7 @@ info:
     
     ### Example Object
     
-    ```JSON
+    ```
     data:
       type: entities
       id: 'commands:autodesk.rendering'
@@ -752,7 +754,7 @@ info:
     This example shows the request to create new namespace under company.
       >**Note**: Only admin user can create the namespace under company.
 
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data":{
@@ -773,7 +775,7 @@ info:
     ```
     This example shows the request to create new namespace under namespace.
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data":{
@@ -794,7 +796,7 @@ info:
     ```    
     The resource provides the following response:
     
-    ```JSON
+    ```
     data:
       type: namespaces
       id: A360
@@ -822,7 +824,7 @@ info:
     
     Add user as `NAMESPACE_ADMIN`
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -842,7 +844,7 @@ info:
 
     Add user as `SCHEMA_AUTHOR`
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -861,7 +863,7 @@ info:
     ```     
     Remove user from `NAMESPACE_ADMIN`
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -881,7 +883,7 @@ info:
     ``` 
     Remove user from `SCHEMA_AUTHOR`
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -912,14 +914,14 @@ info:
     
     ## Example
 
-    ```SHELL
+    ```
     curl -X GET \
     https://developer.api.autodesk.com/schema/v1/namespaces/autodesk.core/entities \ -H 'Authorization: Bearer <token>'
     ```
     
     The resource provides the following response:
     
-    ```JSON
+    ```
     data:
       - type: entities
         id: 'commands:test.formbuilder'
@@ -1080,7 +1082,7 @@ info:
     
     ## Example
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -1095,7 +1097,7 @@ info:
     
     The resource provides the following response:
     
-    ```JSON
+    ```
     data:
       type: extensions
       id: 'contents:test.sandbox:3DPrinting'
@@ -1135,7 +1137,7 @@ info:
     
     ## Example
     
-    ```SHELL
+    ```
     curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
@@ -1169,7 +1171,7 @@ info:
     
     ## Example
     
-    ```SHELL
+    ```
     data:
       type: versions
       attributes:
@@ -1208,7 +1210,7 @@ info:
     
     **Draft versions**
     
-    ```SHELL
+    ```
     curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-draft{?filter[schema][compile]}
     ```
     
@@ -1216,7 +1218,7 @@ info:
 
     **Published versions**
   
-    ```SHELL
+    ```
     curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-tip{? filter[schema][compile]}
     ```
     
@@ -1224,7 +1226,7 @@ info:
     
     **Specific version**
     
-    ```SHELL
+    ```
     curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-{version}{?filter[schema][compile]}
     ```
     After the `extensionTypeID`, specify the actual version that you want to retrieve for your schema. All `GET` requests display the list of schemas that matches with the specified version type.
@@ -1248,7 +1250,7 @@ info:
       
       You can use the filter criteria in the following format:
       
-      ```Shell
+      ```
       GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][namespace]=”test.namespace”
       ```
       
@@ -1281,7 +1283,7 @@ info:
   
     ## Example
     
-    ```JSON
+    ```
       {
         "annotation": {
           "description": "A unit symbol consisting of a prefix or suffix appended to a single numerical value."
@@ -1334,7 +1336,7 @@ info:
       GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][entity]=”propertySets”&filters[schema][constants.typeid]="String"
       ```
     **Response**  
-    ```JSON
+    ```
       {
         "data": [
             {
@@ -1416,7 +1418,7 @@ info:
     
     ## Example
     
-    ```JSON
+    ```
     {
     "data": {
       "type": "versions",
@@ -1495,7 +1497,7 @@ info:
       
       If user has created following content schema. Note that user has added `PropertySetsCustomObject` object inside extension.data.properties. In this object user has specified `propertySetsTypeId`=`propertySets:autodesk.unit:unit-1.0.0`
     
-    ```JSON
+    ```
     {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "description": "Schema description goes here",
