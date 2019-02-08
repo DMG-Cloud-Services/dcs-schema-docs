@@ -1967,7 +1967,7 @@ paths:
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/compile'
       responses:
-        '200': { $ref: '#/responses/getPublishedSchema' } 
+        '200': { $ref: '#/responses/getSchema' } 
       tags: ["Published Schema"]
   '/versions/{extensionTypeId}-draft':
     x-summary: Draft Schema
@@ -1981,7 +1981,7 @@ paths:
         - $ref: '#/parameters/extensionTypeId'
         - $ref: '#/parameters/compile'
       responses:
-        '200': { $ref: '#/responses/getDraftSchema' } 
+        '200': { $ref: '#/responses/getSchema' } 
       tags: ["Draft Schema"]
   '/versions/{extensionTypeId}-{version}':
     x-summary: Versioned Schema
@@ -1996,7 +1996,7 @@ paths:
         - $ref: '#/parameters/version'
         - $ref: '#/parameters/compile'
       responses:
-        '200': { $ref: '#/responses/getVersionedSchema' }
+        '200': { $ref: '#/responses/getSchema' }
         '400': { $ref: '#/responses/json_api_error' }
       tags: ["Versioned Schema"]
   '/schemas':
@@ -2569,10 +2569,68 @@ responses:
   getExtensionSchemaVersions:
     description: Successful response
     schema:
-      title: schema
       type: object
-      allOf:
-      - type: object
+      title: getExtensionSchemaVersions
+      required:
+      - data
+      - included
+      properties:
+        data:
+          type: array
+          title: The Data Schema
+          items:
+            type: object
+            title: The Items Schema
+            required:
+            - id
+            - type
+            - attributes
+            - relationships
+            - links
+            properties:
+              id:
+                type: string
+                title: The Id Schema
+              type:
+                type: string
+                title: The Type Schema
+              attributes:
+                type: object
+                title: The Attributes Schema
+                required:
+                - extensionStatus
+                - lastModifiedTime
+                - createTime
+                - version
+                properties:
+                  extensionStatus:
+                    type: string
+                    title: The Extensionstatus Schema
+                  lastModifiedTime:
+                    type: string
+                    title: The Lastmodifiedtime Schema
+                  createTime:
+                    type: string
+                    title: The Createtime Schema
+                  version:
+                    type: string
+                    title: The Version Schema
+              relationships:
+                type: object
+                title: The Relationships Schema
+              links:
+                type: object
+                title: The Links Schema
+                required:
+                - self
+                properties:
+                  self:
+                    type: string
+                    title: The Self Schema
+        included:
+          type: array
+          title: The Included Schema
+
     headers:
       etag:
         description: |
@@ -2631,8 +2689,8 @@ responses:
                 }
             ],
             "included": []
-        }         
-        
+        }  
+  
   getNamespaces:
     description: Successful response
     schema:
@@ -4143,6 +4201,106 @@ responses:
             },
             "included": []
         }      
+  
+  getSchema:
+      description: Successful response
+      schema:
+        title: get schema versions
+        type: object
+        required:
+        - data
+        - included
+        properties:
+          data:
+            type: object
+            title: The Data Schema
+            required:
+            - id
+            - type
+            - attributes
+            - relationships
+            - links
+            properties:
+              id:
+                type: string
+                title: The Id Schema
+              type:
+                type: string
+                title: The Type Schema
+              attributes:
+                type: object
+                title: The Attributes Schema
+                required:
+                - schema
+                - extensionStatus
+                - lastModifiedTime
+                - createTime
+                - extensionId
+                - version
+                properties:
+                  schema:
+                    type: object
+                    title: The Schema Schema
+                  extensionStatus:
+                    type: string
+                    title: The Extensionstatus Schema
+                  lastModifiedTime:
+                    type: string
+                    title: The Lastmodifiedtime Schema
+                  createTime:
+                    type: string
+                    title: The Createtime Schema
+                  extensionId:
+                    type: string
+                    title: The Extensionid Schema
+                  version:
+                    type: string
+                    title: The Version Schema
+              relationships:
+                type: object
+                title: The Relationships Schema
+              links:
+                type: object
+                title: The Links Schema
+                required:
+                - self
+                properties:
+                  self:
+                    type: string
+                    title: The Self Schema
+          included:
+            type: array
+            title: The Included Schema
+
+      headers:
+        etag:
+          description: |
+            `etag` for the resource which can be used for cache optimization
+            and must be used for mutating operations on this resource
+          type: string
+      examples:
+        application/vnd.api+json:
+          {
+              "data": {
+                  "type": "versions",
+                  "id": "projects:CORE:Project-tip",
+                  "attributes": {
+                      "lastModifiedTime": "2016-05-18T14:49:02Z",
+                      "schema": {
+                          "NOTE": "Please refer to the Forge Schema section above"
+                      },
+                      "createTime": "2016-05-18T14:49:02Z",
+                      "extensionId": "projects:CORE:Project",
+                      "extensionStatus": "published",
+                      "version": "tip"
+                  },
+                  "relationships": {},
+                  "links": {
+                      "self": "https://developer-stg.api.autodesk.com/schema/v1/versions/projects:CORE:Project-tip"
+                  }
+              },
+              "included": []
+          }      
   
   json_api_error:
     description: Delete Extension error
