@@ -1799,7 +1799,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespace' }
         '400': { $ref: '#/responses/json_api_error' }
-      tags: ["Namespaces Details"]
+      tags: ["Namespaces"]
     patch:
       description: Update namespace.
       parameters:
@@ -1816,7 +1816,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getNamespace' }
         '400': { $ref: '#/responses/json_api_error' }
-      tags: ["Namespaces Details"]
+      tags: ["Namespaces"]
         
   '/namespaces/{namespace}/entities':
     x-summary: Entity types
@@ -1832,7 +1832,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespaceEntities' }
-      tags: ["Entity Types"]
+      tags: ["Entities"]
         
   '/entities/{entityId}':
     x-summary: Entity Details
@@ -1848,7 +1848,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getNamespaceEntity' }   
-      tags: ["Entity Details"]
+      tags: ["Entities"]
       
   '/entities/{entityId}/extensions':
     x-summary: Extension Types
@@ -1872,7 +1872,7 @@ paths:
         '201': {$ref: '#/responses/createExtensionType'}
         '400': { $ref: '#/responses/json_api_error' }
         '403': { $ref: '#/responses/json_api_error' }
-      tags: ["Extension Types"]
+      tags: ["Extensions"]
     get:
       operationId: getExtensions
       description: |
@@ -1885,7 +1885,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getExtensionsForEntity' }
         '403': { $ref: '#/responses/json_api_error' }
-      tags: ["Extension Types"]
+      tags: ["Extensions"]
 
   '/extensions/{extensionTypeId}':
     x-summary: Extension Details
@@ -1903,7 +1903,7 @@ paths:
         '200': { $ref: '#/responses/getExtensionDetails' }
         '400': { $ref: '#/responses/json_api_error' }
         '403': { $ref: '#/responses/json_api_error' }
-      tags: ["Extension Details"]
+      tags: ["Extensions"]
     delete:
       description: Delete extension. Extension can be deleted only if it has no published version.
       operationId: deleteExtension
@@ -1940,7 +1940,7 @@ paths:
       responses:
         '201': {$ref: '#/responses/createExtensionSchema'}
         '400': { $ref: '#/responses/json_api_error' }
-      tags: ["Extension type Schema"]
+      tags: ["Versions"]
     get:
       operationId: getExtensionSchemaVersions
       description: |
@@ -1953,7 +1953,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': {$ref: '#/responses/getExtensionSchemaVersions'}     
-      tags: ["Extension type Schema"]
+      tags: ["Versions"]
         
   '/versions/{extensionTypeId}-tip':
     x-summary: Published Schema
@@ -1968,7 +1968,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getSchema' } 
-      tags: ["Published Schema"]
+      tags: ["Versions"]
   '/versions/{extensionTypeId}-draft':
     x-summary: Draft Schema
     x-description: Retrieve draft Schema
@@ -1982,7 +1982,7 @@ paths:
         - $ref: '#/parameters/compile'
       responses:
         '200': { $ref: '#/responses/getSchema' } 
-      tags: ["Draft Schema"]
+      tags: ["Versions"]
   '/versions/{extensionTypeId}-{version}':
     x-summary: Versioned Schema
     x-description: Retrieve versioned extension type schema
@@ -1998,7 +1998,7 @@ paths:
       responses:
         '200': { $ref: '#/responses/getSchema' }
         '400': { $ref: '#/responses/json_api_error' }
-      tags: ["Versioned Schema"]
+      tags: ["Versions"]
   '/schemas':
     x-summary: Schema Search
     x-description: Search versioned extension type schema
@@ -2029,7 +2029,7 @@ paths:
         [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
       responses:
         '200': { $ref: '#/responses/getSearchedVersionedSchema' }
-      tags: ["Schema Search"]
+      tags: ["Schemas"]
         
 parameters:
   commonHeaderRequired:
