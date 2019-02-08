@@ -4304,10 +4304,191 @@ responses:
   getExtensionsForEntity:
     description: Successful response
     schema:
-      title: schema versions
+      title: getExtensionsForEntity
       type: object
-      allOf:
-      - type: object
+      required:
+      - data
+      - included
+      - links
+      - meta
+      properties:
+        data:
+          type: array
+          title: The Data Schema
+          items:
+            type: object
+            title: The Items Schema
+            required:
+            - id
+            - type
+            - attributes
+            - relationships
+            - links
+            properties:
+              id:
+                type: string
+                title: The Id Schema
+              type:
+                type: string
+                title: The Type Schema
+              attributes:
+                type: object
+                title: The Attributes Schema
+                required:
+                - lastModifiedTime
+                - createTime
+                - latestVersion
+                - name
+                - count
+                properties:
+                  lastModifiedTime:
+                    type: string
+                    title: The Lastmodifiedtime Schema
+                  createTime:
+                    type: string
+                    title: The Createtime Schema
+                  latestVersion:
+                    type: string
+                    title: The Latestversion Schema
+                  name:
+                    type: string
+                    title: The Name Schema
+                  count:
+                    type: object
+                    title: The Count Schema
+                    required:
+                    - versions
+                    properties:
+                      versions:
+                        type: integer
+                        title: The Versions Schema
+              relationships:
+                type: object
+                title: The Relationships Schema
+                required:
+                - versions
+                - draft
+                - tip
+                properties:
+                  versions:
+                    type: object
+                    title: The Versions Schema
+                    required:
+                    - links
+                    properties:
+                      links:
+                        type: object
+                        title: The Links Schema
+                        required:
+                        - self
+                        - related
+                        properties:
+                          self:
+                            type: string
+                            title: The Self Schema
+                          related:
+                            type: string
+                            title: The Related Schema
+                  draft:
+                    type: object
+                    title: The Draft Schema
+                    required:
+                    - data
+                    - links
+                    properties:
+                      data:
+                        type: 'null'
+                        title: The Data Schema
+                      links:
+                        type: object
+                        title: The Links Schema
+                        required:
+                        - self
+                        - related
+                        properties:
+                          self:
+                            type: string
+                            title: The Self Schema
+                          related:
+                            type: string
+                            title: The Related Schema
+                  tip:
+                    type: object
+                    title: The Tip Schema
+                    required:
+                    - data
+                    - links
+                    properties:
+                      data:
+                        type: 'null'
+                        title: The Data Schema
+                      links:
+                        type: object
+                        title: The Links Schema
+                        required:
+                        - self
+                        - related
+                        properties:
+                          self:
+                            type: string
+                            title: The Self Schema
+                          related:
+                            type: string
+                            title: The Related Schema
+              links:
+                type: object
+                title: The Links Schema
+                required:
+                - self
+                properties:
+                  self:
+                    type: string
+                    title: The Self Schema
+        included:
+          type: array
+          title: The Included Schema
+        links:
+          type: object
+          title: The Links Schema
+          properties:
+            prev:
+              type: string
+              title: The Prev Schema
+            next:
+              type: string
+              title: The Next Schema
+            first:
+              type: string
+              title: The First Schema
+            last:
+              type: string
+              title: The Last Schema
+        meta:
+          type: object
+          title: The Meta Schema
+          properties:
+            paginationInfo:
+              type: object
+              title: The Paginationinfo Schema
+              required:
+              - totalResults
+              - pageNumber
+              - totalPages
+              - pageSize
+              properties:
+                totalResults:
+                  type: integer
+                  title: The Totalresults Schema
+                pageNumber:
+                  type: integer
+                  title: The Pagenumber Schema
+                totalPages:
+                  type: integer
+                  title: The Totalpages Schema
+                pageSize:
+                  type: integer
+                  title: The Pagesize Schema
+
     headers:
       etag:
         description: |
@@ -4365,10 +4546,145 @@ responses:
   getExtensionDetails:
     description: Successful response
     schema:
-      title: schema versions
       type: object
-      allOf:
-      - type: object
+      title: getExtensionDetails
+      required:
+      - data
+      - included
+      properties:
+        data:
+          type: object
+          title: The Data Schema
+          required:
+          - id
+          - type
+          - attributes
+          - relationships
+          - links
+          properties:
+            id:
+              type: string
+              title: The Id Schema
+            type:
+              type: string
+              title: The Type Schema
+            attributes:
+              type: object
+              title: The Attributes Schema
+              required:
+              - lastModifiedTime
+              - createTime
+              - latestVersion
+              - name
+              - count
+              properties:
+                lastModifiedTime:
+                  type: string
+                  title: The Lastmodifiedtime Schema
+                createTime:
+                  type: string
+                  title: The Createtime Schema
+                latestVersion:
+                  type: string
+                  title: The Latestversion Schema
+                name:
+                  type: string
+                  title: The Name Schema
+                count:
+                  type: object
+                  title: The Count Schema
+                  required:
+                  - versions
+                  properties:
+                    versions:
+                      type: integer
+                      title: The Versions Schema
+            relationships:
+              type: object
+              title: The Relationships Schema
+              required:
+              - versions
+              - draft
+              - tip
+              properties:
+                versions:
+                  type: object
+                  title: The Versions Schema
+                  required:
+                  - links
+                  properties:
+                    links:
+                      type: object
+                      title: The Links Schema
+                      required:
+                      - self
+                      - related
+                      properties:
+                        self:
+                          type: string
+                          title: The Self Schema
+                        related:
+                          type: string
+                          title: The Related Schema
+                draft:
+                  type: object
+                  title: The Draft Schema
+                  required:
+                  - data
+                  - links
+                  properties:
+                    data:
+                      type: 'null'
+                      title: The Data Schema
+                    links:
+                      type: object
+                      title: The Links Schema
+                      required:
+                      - self
+                      - related
+                      properties:
+                        self:
+                          type: string
+                          title: The Self Schema
+                        related:
+                          type: string
+                          title: The Related Schema
+                tip:
+                  type: object
+                  title: The Tip Schema
+                  required:
+                  - data
+                  - links
+                  properties:
+                    data:
+                      type: 'null'
+                      title: The Data Schema
+                    links:
+                      type: object
+                      title: The Links Schema
+                      required:
+                      - self
+                      - related
+                      properties:
+                        self:
+                          type: string
+                          title: The Self Schema
+                        related:
+                          type: string
+                          title: The Related Schema
+            links:
+              type: object
+              title: The Links Schema
+              required:
+              - self
+              properties:
+                self:
+                  type: string
+                  title: The Self Schema
+        included:
+          type: array
+          title: The Included Schema
+
     headers:
       etag:
         description: |
@@ -4652,10 +4968,112 @@ responses:
   getSearchedVersionedSchema:
     description: Successful response
     schema:
-      title: schema versions
+      title: getSearchedVersionedSchema
       type: object
-      allOf:
-      - type: object
+      required:
+      - data
+      - included
+      - links
+      - meta
+      properties:
+        data:
+          type: array
+          title: The Data Schema
+          items:
+            type: object
+            title: The Items Schema
+            required:
+            - id
+            - type
+            - attributes
+            - relationships
+            - links
+            properties:
+              id:
+                type: string
+                title: The Id Schema
+              type:
+                type: string
+                title: The Type Schema
+              attributes:
+                type: object
+                title: The Attributes Schema
+                required:
+                - extension
+                - extensionStatus
+                - dateCreated
+                - namespace
+                - version
+                properties:
+                  extension:
+                    type: string
+                    title: The Extension Schema
+                  extensionStatus:
+                    type: string
+                    title: The Extensionstatus Schema
+                  dateCreated:
+                    type: string
+                    title: The Datecreated Schema
+                  namespace:
+                    type: string
+                    title: The Namespace Schema
+                  version:
+                    type: string
+                    title: The Version Schema
+              relationships:
+                type: object
+                title: The Relationships Schema
+              links:
+                type: object
+                title: The Links Schema
+                required:
+                - self
+                properties:
+                  self:
+                    type: string
+                    title: The Self Schema
+        included:
+          type: array
+          title: The Included Schema
+        links:
+          type: object
+          title: The Links Schema
+          required:
+          - first
+          - last
+          properties:
+            first:
+              type: string
+              title: The First Schema
+            last:
+              type: string
+              title: The Last Schema
+        meta:
+          type: object
+          title: The Meta Schema
+          properties:
+            paginationInfo:
+              type: object
+              title: The Paginationinfo Schema
+              required:
+              - totalResults
+              - pageNumber
+              - totalPages
+              - pageSize
+              properties:
+                totalResults:
+                  type: integer
+                  title: The Totalresults Schema
+                pageNumber:
+                  type: integer
+                  title: The Pagenumber Schema
+                totalPages:
+                  type: integer
+                  title: The Totalpages Schema
+                pageSize:
+                  type: integer
+                  title: The Pagesize Schema
+
     headers:
       etag:
         description: |
