@@ -1954,6 +1954,38 @@ paths:
       responses:
         '200': {$ref: '#/responses/getExtensionSchemaVersions'}     
       tags: ["Versions"]
+      
+  '/extensions/{extensionTypeId}/tip':
+    x-summary: Get latest version of schema under extension.
+    x-description: Get latest version of schema under extension.
+    get:
+      operationId: getLatestSchemaVersionUnderExtension
+      description: |
+        Get Latest schema version under extension.
+      parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
+        - $ref: '#/parameters/extensionTypeId'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': {$ref: '#/responses/getSchema'}     
+      tags: ["Versions"]    
+  
+  '/extensions/{extensionTypeId}/draft':
+    x-summary: Get draft version of schema under extension
+    x-description: Get draft version of schema under extension.
+    get:
+      operationId: getDraftSchemaVersionUnderExtension
+      description: |
+        Get draft schema version under extension.
+      parameters:
+        - $ref: '#/parameters/commonHeaderRequired'
+        - $ref: '#/parameters/extensionTypeId'
+      security:
+        [ { oauth2_access_code: [ 'data:read' ] }, { oauth2_implicit: [ 'data:read' ] }, { oauth2_application: [ 'data:read' ] } ]
+      responses:
+        '200': {$ref: '#/responses/getSchema'}     
+      tags: ["Versions"] 
         
   '/versions/{extensionTypeId}-tip':
     x-summary: Published Schema
