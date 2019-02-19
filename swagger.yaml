@@ -128,7 +128,7 @@ info:
       
       Once you create a namespace, the new namespace is assigned to the creator as the owner. Only the owner of the namespace can edit their namespaces. Owner can transfer the ownership of the namespace to different owner.
       
-        >**Note**: Only a super user or FSS team can create a Namespace. Also, the namespace is created on per tenant basis and you must create all required schemas inside the designated namespace.
+      >**Note**: Only a super user or FSS team can create a Namespace. Also, the namespace is created on per tenant basis and you must create all required schemas inside the designated namespace.
     
     ##<a name="entity"></a>Entity
       
@@ -1198,7 +1198,8 @@ info:
       The Extension Type Schema exposes a `GET versions` endpoint that allows you to retrieve different schema versions. You can retrieve draft versions, published versions, or specific version numbers.
       
       In a `GET` request, you need to specify the Id of the extension type from which you want to retrieve the schema versions.
-        >**Note**: Schema draft and tip version can also be retireved using GET `/extensions/{extesnsionId}/tip` AND `/extensions/{extesnsionId}/draft`. Howerver, to get optimal performance time we would recommend you to use following APIs.
+    
+    >**Note**: Schema draft and tip version can also be retireved using GET `/extensions/{extesnsionId}/tip` AND `/extensions/{extesnsionId}/draft`. Howerver, to get optimal performance time we would recommend you to use following APIs.
 
     ## Example
     
