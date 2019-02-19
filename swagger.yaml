@@ -1198,6 +1198,8 @@ info:
       The Extension Type Schema exposes a `GET versions` endpoint that allows you to retrieve different schema versions. You can retrieve draft versions, published versions, or specific version numbers.
       
       In a `GET` request, you need to specify the Id of the extension type from which you want to retrieve the schema versions.
+      
+            **Note**: Schema draft and tip version can also be retireved using GET `/extensions/{extesnsionId}/tip` AND `/extensions/{extesnsionId}/draft`. Howerver, to get optimal performance time we would recommend you to use following APIs.
     
     ## Example
     
@@ -1223,7 +1225,7 @@ info:
     curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" –d https://developer-stg.api.autodesk.com/schema/v1/versions/{extensionTypeId}-{version}{?filter[schema][compile]}
     ```
     After the `extensionTypeID`, specify the actual version that you want to retrieve for your schema. All `GET` requests display the list of schemas that matches with the specified version type.
-    
+  
     [@tutorials/search-schema]: <>
     # Search a Schema
     
