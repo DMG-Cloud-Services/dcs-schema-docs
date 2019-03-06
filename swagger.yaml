@@ -773,7 +773,7 @@ info:
     '{
       "data":{
         "relationships":{
-          "companies":{
+          "namespaces":{
             "data":[
               {
                 "type": "namespaces",
