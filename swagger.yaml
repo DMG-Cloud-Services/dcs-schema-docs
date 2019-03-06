@@ -818,7 +818,7 @@ info:
     Add user as `NAMESPACE_ADMIN`
     
     ```
-    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    curl -X PATCH -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
       		"type": "namespaces",
@@ -838,7 +838,7 @@ info:
     Add user as `SCHEMA_AUTHOR`
     
     ```
-    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    curl -X PATCH -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
       		"type": "namespaces",
@@ -857,7 +857,7 @@ info:
     Remove user from `NAMESPACE_ADMIN`
     
     ```
-    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    curl -X PATCH -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
       		"type": "namespaces",
@@ -877,7 +877,7 @@ info:
     Remove user from `SCHEMA_AUTHOR`
     
     ```
-    curl -X POST -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
+    curl -X PATCH -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json" -d
     '{
       "data": {
       		"type": "namespaces",
