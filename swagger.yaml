@@ -1825,7 +1825,6 @@ paths:
     x-description: Retrieve all the Entities within the namespace
     get:
       operationId: getNamespaceEntities
-      x-forge-id: schema-namespaces-namespace-entities-GET
       description: |
         Retrieve all the Entities within the namespace
       parameters:
@@ -1842,7 +1841,6 @@ paths:
     x-description: Retrieve an entity within the namespace
     get:
       operationId: getNamespaceEntity
-      x-forge-id: schema-entities-entityId-GET
       description: |
         Retrieve an entity within the namespace
       parameters:
@@ -1879,7 +1877,6 @@ paths:
       tags: ["Extensions"]
     get:
       operationId: getExtensions
-      x-forge-id: schema-entities-entityId-extensions-GET
       description: |
         Retrieve all the extension types available within an entity
       parameters:
@@ -1948,7 +1945,6 @@ paths:
       tags: ["Versions"]
     get:
       operationId: getExtensionSchemaVersions
-      x-forge-id: schema-extensions-extensionTypeId-versions-GET
       description: |
         Retrieve all the available version of an extension schema.
       parameters:
@@ -1966,7 +1962,6 @@ paths:
     x-description: Get latest version of schema under extension. To get the optimal performance time we would recommend you to use GET /versions/{extensionTypeId}-tip. 
     get:
       operationId: getLatestSchemaVersionUnderExtension
-      x-forge-id: schema-extensions-extensionTypeId-tip-GET
       description: |
         Get Latest schema version under extension.
       parameters:
@@ -1983,7 +1978,6 @@ paths:
     x-description: Get draft version of schema under extension. To get the optimal performance time we would recommend you to use GET /versions/{extensionTypeId}-draft.
     get:
       operationId: getDraftSchemaVersionUnderExtension
-      x-forge-id: schema-extensions-extensionTypeId-draft-GET
       description: |
         Get draft schema version under extension.
       parameters:
@@ -2014,7 +2008,6 @@ paths:
     x-description: Retrieve draft Schema
     get:
       operationId: getDraftSchema
-      x-forge-id: schema-versions-extensionTypeId-draft-GET
       description: |
         Retrieves the draft version schema of an extension type
       parameters:
@@ -2029,7 +2022,6 @@ paths:
     x-description: Retrieve versioned extension type schema
     get:
       operationId: getVersionedSchema
-      x-forge-id: schema-versions-extensionTypeId-version-GET
       description: |
         Retrieve versioned extension type schema
       parameters:
