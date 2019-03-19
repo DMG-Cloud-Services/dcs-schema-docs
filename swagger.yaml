@@ -1239,17 +1239,15 @@ info:
       
     ###  Example
       
-      ```
-      GET https://developer-stg.api.autodesk.com/schema/v1/schemas{?filters[schema][namespace],filters[schema][entity],filters[schema][extension],filters[schema][mimeType],filters[schema][schemaType],filters[schema][refType],filters[schema][fromAllowedTypes],filters[schema][toAllowedTypes],filters[schema][contentsAllowedTypes],filters[schema][contentsVisibleTypes],filters[schema][versionsAllowedTypes],filters[schema][implements],filters[schema][implementsVersion],filters[schema][linksAllowedTypes],filters[schema][id],page[number],page[size]}
-      
-      ```
+    ```
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -d https://developer-stg.api.autodesk.com/schema/v1/schemas{?filters[schema][namespace],filters[schema][entity],filters[schema][extension],filters[schema][mimeType],filters[schema][schemaType],filters[schema][refType],filters[schema][fromAllowedTypes],filters[schema][toAllowedTypes],filters[schema][contentsAllowedTypes],filters[schema][contentsVisibleTypes],filters[schema][versionsAllowedTypes],filters[schema][implements],filters[schema][implementsVersion],filters[schema][linksAllowedTypes],filters[schema][id],page[number],page[size]}
+    ```
       
       You can use the filter criteria in the following format:
       
-      ```
-      GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][namespace]=”test.namespace”
-      
-      ```
+    ```
+      curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -d https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][namespace]=”test.namespace”
+    ```
       
       The following table describes the filters that you can use for searching a schema:
       
@@ -1329,9 +1327,9 @@ info:
     filters[schema][constants.id]=text, filters[schema][constants.typeid]=String, filters[schema][annotation.description]=given description
     
     **Request**  
-      ```Shell
-      GET https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][entity]=”propertySets”&filters[schema][constants.typeid]="String"
-      ```
+    ```
+    curl -X GET -H "Authorization: Bearer 2wlSxqoUimJT3snKbaDg5HiV2Aam" -d https://developer-stg.api.autodesk.com/schema/v1/schemas?filters[schema][entity]=”propertySets”&filters[schema][constants.typeid]="String"
+    ```
     **Response**  
     ```
       {
