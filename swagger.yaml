@@ -18,7 +18,7 @@ info:
     
     The Forge Schema API follows the JSON API specification 4.0. For more information, see JSON API specification.
     
-    For all Forge Schema API requests, you must set the following headers:
+    For all Forge Schema API requests, you must set the following headers :
     
     |Header             | Value
     | ------            | -----------------------------------------------------------------------------------
